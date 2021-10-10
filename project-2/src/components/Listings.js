@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import "../components-css/Listings.css"
 
 export default class Listing extends React.Component {
 
@@ -12,7 +13,7 @@ export default class Listing extends React.Component {
     }
 
     fetchDate = async () => {
-        let response = await axios.get(this.url + "/Listings")
+        let response = await axios.get(this.url + "/listings")
         this.setState({
             data: response.data
         })
@@ -24,6 +25,7 @@ export default class Listing extends React.Component {
 
     render(){
         return <React.Fragment>
+            <div className="listing-background">
             {this.state.data.map( listings => 
             <div className="card" key={listings._id}>
                 <div className="card-body">
@@ -33,8 +35,8 @@ export default class Listing extends React.Component {
                         {listings.flower_type.map ( type => <li>{type}</li>)}
                     </ul>
                 </div>
-
             </div>)}
+            </div>
         </React.Fragment>
     }
 }

@@ -24,14 +24,10 @@ export default class Listing extends React.Component {
 
     render(){
         return <React.Fragment>
-            {this.state.data.map( listings => 
-            <div className="card" key={listings._id}>
+            {this.state.data.map( florist => 
+            <div className="card" key={florist._id}>
                 <div className="card-body">
-                    <h3 className="card-title">{listings.name}</h3>
-                    <h4>Ingredients</h4>
-                    <ul>
-                        {listings.flower_type.map ( type => <li>{type}</li>)}
-                    </ul>
+                    <h3 className="card-title">{florist.name}</h3>
                 </div>
 
             </div>)}
