@@ -2,6 +2,7 @@ import React from 'react'
 import Home from './components/Home'
 import Florists from './components/Florists'
 import Listings from './components/Listings'
+import Admin from './components/Admin'
 
 
 export default class FloristStop extends React.Component {
@@ -23,6 +24,8 @@ export default class FloristStop extends React.Component {
             return <Listings/>
         } else if (this.state.active == 'florists'){
             return <Florists />
+        } else if (this.state.active == 'admin'){
+            return <Admin />
         }
     }
 
@@ -37,7 +40,7 @@ export default class FloristStop extends React.Component {
                     </li>
                     <li className="nav-item">
                         <button className="nav-link"
-                                >About Us</button>
+                                onClick={() => this.setActive('admin')}>Admin</button>
                     </li>
                     <li className="nav-item">
                         <button className="nav-link"
