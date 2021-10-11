@@ -4,10 +4,19 @@
     background-attachment: fixed;
     background-position: center;
     background-size:cover;
+    z-index: -1;
 }
 
-.card{
-    width: 50vw;
+.card-listing{
     margin: 10px;
+    width: 18rem;
+    height: 30rem;
+}
 
+.card-listing:hover{
+    background-color: rgba(245, 240, 240, 0.61);
+}
+
+.card-image{
+    padding: 20px;
 }
