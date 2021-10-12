@@ -13,16 +13,30 @@ export default class Listing extends React.Component {
         'display': false
     }
 
-    fetchDate = async () => {
-        let response = await axios.get(this.url + "/listings")
+    fetchData = async () => {
+        let response = await axios.get(this.url + "/listings"
+                                                + "?name=" + this.props.searchKeyword
+                                                + "&"
+                                                + "flower_type=" + this.props.searchCategory)
+
         this.setState({
             data: response.data
         })
+
+        console.log(response)
+        console.log(response.data)
     }
 
     componentDidMount() {
-        this.fetchDate()
+        this.fetchData()
     }
+
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.searchCategory !== prevProps.searchCategory) {
+          this.fetchData(this.props.searchCategory);
+        }
+      }
 
     hideModalBox = () => {
         this.setState({

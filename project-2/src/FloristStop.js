@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import Home from './components/Home'
 import Florists from './components/Florists'
 import Listings from './components/Listings'
@@ -7,11 +8,21 @@ import './FloristStop.css'
 
 
 export default class FloristStop extends React.Component {
+
+
     state = {
         'active': 'home',
         'dropdown': false,
         'searchKeyword': "",
         'searchCategory': []
+    }
+
+
+    search(){
+        this.setState({
+            'active': 'listings',
+            'dropdown': false
+        })
     }
 
     setActive = (page) => {
@@ -24,7 +35,9 @@ export default class FloristStop extends React.Component {
         if (this.state.active == 'home') {
             return <Home />
         } else if (this.state.active == 'listings') {
-            return <Listings />
+            return <Listings 
+                    searchKeyword = {this.state.searchKeyword} 
+                    searchCategory = {this.state.searchCategory}/>
         } else if (this.state.active == 'florists') {
             return <Florists />
         } else if (this.state.active == 'admin') {
@@ -133,11 +146,12 @@ export default class FloristStop extends React.Component {
                             </label>
                         </div>
                     </div>
-                    <button className="btn btn-danger"
-                            onClick={()=>this.searchButton()}>Search</button>
+                    <button className="btn btn-danger" 
+                            onClick={() => this.search()}>Search</button>
                 </div>
-
             </React.Fragment>
+
+
         } else {
             return null;
         }
