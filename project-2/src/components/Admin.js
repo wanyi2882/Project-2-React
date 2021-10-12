@@ -95,11 +95,11 @@ export default class Admin extends React.Component{
                 <div className="form-check-inline">
                     <input className="form-check-input" 
                            type="checkbox" 
-                           value="babyBreath" 
+                           value="baby breath" 
                            name="newListingCategory"
                            checked={this.state.newListingCategory.includes('baby breath')} 
                            onChange={this.updateCategoryCheckboxes} />
-                    <label className="form-check-label" for="category-babyBreath">
+                    <label className="form-check-label" for="category-baby breath">
                         Baby Breath
                     </label>
                 </div>
