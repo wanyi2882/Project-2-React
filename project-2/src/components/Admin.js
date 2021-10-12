@@ -97,7 +97,7 @@ export default class Admin extends React.Component{
                            type="checkbox" 
                            value="babyBreath" 
                            name="newListingCategory"
-                           checked={this.state.newListingCategory.includes('babyBreath')} 
+                           checked={this.state.newListingCategory.includes('baby breath')} 
                            onChange={this.updateCategoryCheckboxes} />
                     <label className="form-check-label" for="category-babyBreath">
                         Baby Breath
