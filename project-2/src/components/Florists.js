@@ -11,15 +11,15 @@ export default class Listing extends React.Component {
         ]
     }
 
-    fetchDate = async () => {
-        let response = await axios.get(this.url + "/Florist")
+    fetchData = async () => {
+        let response = await axios.get(this.url + "/florists")
         this.setState({
             data: response.data
         })
     }
 
     componentDidMount(){
-        this.fetchDate()
+        this.fetchData()
     }
 
     render(){

@@ -13,14 +13,17 @@ export default class Listing extends React.Component {
         'display': false,
         'dropdown': false,
         'searchKeyword': "",
-        'searchCategory': []
+        'searchCategory': [],
+        'occasion': []
     }
 
     fetchData = async () => {
         let response = await axios.get(this.url + "/listings"
                                                 + "?name=" + this.state.searchKeyword
                                                 + "&"
-                                                + "flower_type=" + this.state.searchCategory)
+                                                + "flower_type=" + this.state.searchCategory
+                                                + "&"
+                                                + "occasion=" + this.state.occasion)
 
         this.setState({
             'data': response.data,
@@ -221,7 +224,8 @@ export default class Listing extends React.Component {
                                         src={listings.image} />
                                     <div className="card-body">
                                         <h3 className="card-title">{listings.name}</h3>
-                                        <h4>${listings.price}</h4>
+                                        <h4>By <span></span></h4>
+                                        <h5>${listings.price}</h5>
                                     </div>
                                 </div>
                             </div>
