@@ -1,13 +1,69 @@
 import React from 'react'
+import axios from 'axios'
+import Listings from './Listings'
 
 //Create form for Florists to add in new listings
 
 export default class Admin extends React.Component{
+
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
+
+    sendData = async () => {
+        await axios.post(this.url + "/listings",
+                                                 {
+                                                    "name": this.state.newListingName,
+                                                    "flower_type": this.state.newListingCategory,
+                                                    "price": parseFloat(this.state.newListingPrice),
+                                                    "occasion": this.state.newListingOccasion,
+                                                    "quantity": parseInt(this.state.newListingQuantity),
+                                                    "image": this.state.newListingImage
+                                                })
+
+    }
+
     state = {
         'newListingName': "",
         'newListingDescription': "",
-        'newListingCategory': []
+        'newListingCategory': [],
+        'newListingPrice': 0,
+        'newListingQuantity': 0,
+        'newListingOccasion': [],
+        'newListingImage': ""
+    }
 
+    onSubmitForm = () => {
+        let error = ""
+        if (this.state.newListingName.length < 1) {
+            error = error + "Please enter a name" + "\n"
+        }
+        
+        if (this.state.newListingCategory.length < 1) {
+            error = error + "please choose at least one flower type" + "\n"
+        } 
+        
+        if (parseFloat(this.state.newListingPrice) <= 0) {
+            error = error + "Please enter price" + "\n"
+        } 
+        
+        if (parseInt(this.state.newListingQuantity) <= 0) {
+            error = error + "Please enter quantity more than 0" + "\n"
+        } 
+        
+        if (this.state.newListingOccasion < 1) {
+            error = error + "Please choose at least one occasion" + "\n"
+        } 
+        
+        if (this.state.newListingImage.length < 1){
+            error = error + "Please enter URL of image"
+        } 
+
+        if (error == "") {
+            this.sendData()
+
+            alert ("Successful submission")
+        } else {
+            alert(error)
+        }
     }
 
     updateFormField = (event) => {
@@ -47,6 +103,7 @@ export default class Admin extends React.Component{
                 <input type="text"
                        className="form-control"
                        name="newListingName" 
+                       required
                        value={this.state.newListingName} 
                        onChange={this.updateFormField}/>
             </div>
@@ -103,7 +160,104 @@ export default class Admin extends React.Component{
                         Baby Breath
                     </label>
                 </div>
+                <div className="form-check-inline">
+                    <input className="form-check-input" 
+                           type="checkbox" 
+                           value="tulips" 
+                           name="newListingCategory"
+                           checked={this.state.newListingCategory.includes('tulips')} 
+                           onChange={this.updateCategoryCheckboxes} />
+                    <label className="form-check-label" for="category-tulips">
+                        Tulips
+                    </label>
+                </div>                
             </div>
+
+            <div>
+                <div><label className="form-label">Occasion:</label></div>
+                <div className="form-check-inline">
+                    <input className="form-check-input" 
+                           type="checkbox" 
+                           value="anniversary"
+                           name="newListingOccasion" 
+                           onChange={this.updateCategoryCheckboxes} 
+                           checked={this.state.newListingOccasion.includes('anniversary')} />
+                    <label className="form-check-label" htmlFor="occasion-anniversary">
+                        Anniversary
+                    </label>
+                </div>
+                <div className="form-check-inline">
+                    <input className="form-check-input" 
+                           type="checkbox" 
+                           value="birthday"
+                           name="newListingOccasion" 
+                           onChange={this.updateCategoryCheckboxes} 
+                           checked={this.state.newListingOccasion.includes('birthday')} />
+                    <label className="form-check-label" htmlFor="occasion-birthday">
+                        Birthday
+                    </label>
+                </div>
+                <div className="form-check-inline">
+                    <input className="form-check-input" 
+                           type="checkbox" 
+                           value="date"
+                           name="newListingOccasion" 
+                           onChange={this.updateCategoryCheckboxes} 
+                           checked={this.state.newListingOccasion.includes('date')} />
+                    <label className="form-check-label" htmlFor="occasion-date">
+                        Date
+                    </label>
+                </div>
+                <div className="form-check-inline">
+                    <input className="form-check-input" 
+                           type="checkbox" 
+                           value="graduation"
+                           name="newListingOccasion" 
+                           onChange={this.updateCategoryCheckboxes} 
+                           checked={this.state.newListingOccasion.includes('graduation')} />
+                    <label className="form-check-label" htmlFor="occasion-graduation">
+                        Graduation
+                    </label>
+                </div>
+                <div className="form-check-inline">
+                    <input className="form-check-input" 
+                           type="checkbox" 
+                           value="wedding"
+                           name="newListingOccasion" 
+                           onChange={this.updateCategoryCheckboxes} 
+                           checked={this.state.newListingOccasion.includes('wedding')} />
+                    <label className="form-check-label" htmlFor="occasion-wedding">
+                        Wedding
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <label className="form-label">Price (SGD): </label>
+                <input type="number"
+                       name="newListingPrice"
+                       value={this.state.newListingPrice}
+                       onChange={this.updateFormField}/>
+            </div>
+            <div>
+                <label className="form-label">Quantity Available: </label>
+                <input type="number"
+                       name="newListingQuantity"
+                       value={this.state.newListingQuantity}
+                       onChange={this.updateFormField}/>
+            </div>
+            <div>
+                <label className="form-label">URL of bouquet image:</label>
+                <input type="text"
+                       className="form-control"
+                       name="newListingImage" 
+                       value={this.state.newListingImage} 
+                       onChange={this.updateFormField}/>
+            </div>
+            <button className="btn btn-primary"
+                    type="submit"
+                    onClick={() => this.onSubmitForm()}>Post your listing</button>
+
         </React.Fragment>
     }
 }
