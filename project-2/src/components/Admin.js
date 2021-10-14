@@ -1,12 +1,12 @@
 import React from 'react'
 import axios from 'axios'
-import Listings from './Listings'
 
 //Create form for Florists to add in new listings
 
 export default class Admin extends React.Component{
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
+
 
     sendData = async () => {
         await axios.post(this.url + "/listings",
@@ -59,7 +59,6 @@ export default class Admin extends React.Component{
 
         if (error == "") {
             this.sendData()
-
             alert ("Successful submission")
         } else {
             alert(error)
@@ -170,7 +169,18 @@ export default class Admin extends React.Component{
                     <label className="form-check-label" for="category-tulips">
                         Tulips
                     </label>
-                </div>                
+                </div>
+                <div className="form-check-inline">
+                    <input className="form-check-input" 
+                           type="checkbox" 
+                           value="hydrangea" 
+                           name="newListingCategory"
+                           checked={this.state.newListingCategory.includes('hydrangea')} 
+                           onChange={this.updateCategoryCheckboxes} />
+                    <label className="form-check-label" for="category-hydrangea">
+                        Hydrangea
+                    </label>
+                </div>                  
             </div>
 
             <div>

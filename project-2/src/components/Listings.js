@@ -4,8 +4,7 @@ import "../components-css/Listings.css"
 
 export default class Listing extends React.Component {
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
-
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
     state = {
         'data': [
 
@@ -185,6 +184,28 @@ export default class Listing extends React.Component {
                                 Baby Breath
                             </label>
                         </div>
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="tulips"
+                                name="searchCategory"
+                                checked={this.state.searchCategory.includes('tulips')}
+                                onChange={this.updateCategoryCheckboxes} />
+                            <label className="form-check-label" for="category-tulips">
+                                Tulips
+                            </label>
+                        </div>
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="hydrangea"
+                                name="searchCategory"
+                                checked={this.state.searchCategory.includes('hydrangea')}
+                                onChange={this.updateCategoryCheckboxes} />
+                            <label className="form-check-label" for="category-hydrangea">
+                                Hydrangea
+                            </label>
+                        </div>
                     </div>
                     <button className="btn btn-danger" onClick={() => this.fetchData()}>Search</button>
                 </div>
@@ -224,7 +245,7 @@ export default class Listing extends React.Component {
                                         src={listings.image} />
                                     <div className="card-body">
                                         <h3 className="card-title">{listings.name}</h3>
-                                        <h4>By <span></span></h4>
+                                        <h4>By <span>{listings.florist.name}</span></h4>
                                         <h5>${listings.price}</h5>
                                     </div>
                                 </div>
