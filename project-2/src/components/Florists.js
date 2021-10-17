@@ -6,29 +6,27 @@ export default class Florists extends React.Component {
     url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
 
     state = {
-        'data': [
-
-        ],
         'newUserName': "",
         'newLoginEmail': "",
         'newFloristName': "",
         'newContactCategory': [],
         'newInstagramURL': "",
         'newFacebookURL': "",
-        'newEmailAddress': "",
         'newContactNumber': ""
     }
 
-    fetchData = async () => {
-        let response = await axios.get(this.url + "/florists")
-        this.setState({
-            data: response.data
+    sendData = async () => {
+        await axios.post(this.url + "/florists", 
+                        {"username": this.state.newUserName,
+                        "login_email": this.state.newLoginEmail,
+                        "name": this.state.newFloristName,
+                        "contact_method": this.state.newContactCategory,
+                        "number": this.state.newContactNumber,
+                        "instagram": this.state.newInstagramURL,
+                        "facebook": this.state.newFacebookURL
         })
     }
 
-    componentDidMount() {
-        this.fetchData()
-    }
 
     updateFormField = (event) => {
         this.setState({
@@ -57,6 +55,45 @@ export default class Florists extends React.Component {
                 [event.target.name]: cloned
             })
         }
+    }
+
+    createAccount = () => {
+            let error = ""
+            if (this.state.newUserName.length < 8) {
+                error = error + "Please enter a username with at least 8 characters." + "\n"
+            }
+            
+            if (!this.state.newLoginEmail.includes("@") || !this.state.newLoginEmail.includes(".")) {
+                error = error + "Please enter a valid email address." + "\n"
+            } 
+            
+            if (this.state.newFloristName.length < 1) {
+                error = error + "Please enter a Florist name." + "\n"
+            } 
+            
+            if (this.state.newContactCategory.length < 1) {
+                error = error + "Please choose at least one way for buyers to contact you." + "\n"
+            } 
+            
+            if (this.state.newContactNumber.length < 8) {
+                error = error + "Please enter contact number more than 8 digits" + "\n"
+            } 
+            
+            if (!this.state.newInstagramURL.includes("@instagram.com")){
+                error = error + "Please enter a valid Instagram URL" + "\n"
+            } 
+
+            if (!this.state.newFacebookURL.includes("@facebook.com")){
+                error = error + "Please enter a valid FaceBook URL"
+            }
+    
+            if (error == "") {
+                this.sendData()
+                alert ("Account Succesfully Created!")
+            } else {
+                alert(error)
+            }
+        
     }
 
     render() {
@@ -110,38 +147,30 @@ export default class Florists extends React.Component {
                     <div className="form-check-inline">
                         <input className="form-check-input" 
                            type="checkbox" 
-                           value="call" 
+                           value="facebook" 
                            name="newContactCategory"
-                           checked={this.state.newContactCategory.includes('call')}
+                           checked={this.state.newContactCategory.includes('facebook')}
                            onChange={this.updateCategoryCheckboxes} />
-                        <label className="form-check-label" for="category-call">
-                            Call
+                        <label className="form-check-label" for="category-facebook">
+                            Facebook
                         </label>
                     </div>
 
                     <div className="form-check-inline">
                         <input className="form-check-input" 
                            type="checkbox" 
-                           value="email" 
+                           value="instagram" 
                            name="newContactCategory"
-                           checked={this.state.newContactCategory.includes('email')}
+                           checked={this.state.newContactCategory.includes('instagram')}
                            onChange={this.updateCategoryCheckboxes} />
-                        <label className="form-check-label" for="category-email">
-                            Email
+                        <label className="form-check-label" for="category-instagram">
+                            Instagram
                         </label>
                     </div>                    
                 </div>
 
                 <div>
-                    <label className="form-label">Email Address (Please fill this field if you have ticked 'Email' above):</label>
-                    <input type="text"
-                        className="form-control"
-                        name="newEmailAddress"
-                        value={this.state.newEmailAddress}
-                        onChange={this.updateFormField} />
-                </div>
-                <div>
-                    <label className="form-label">Contact Number(Please fill this field if you have ticked 'Call' and/or 'Whatsapp' above):</label>
+                    <label className="form-label">Contact Number (Please fill this field if you have ticked 'Whatsapp' above):</label>
                     <input type="text"
                         className="form-control"
                         name="newContactNumber"
@@ -149,7 +178,7 @@ export default class Florists extends React.Component {
                         onChange={this.updateFormField} />
                 </div>
                 <div>
-                    <label className="form-label">Instagram URL (If available):</label>
+                    <label className="form-label">Instagram URL (Please fill this field if you have ticked 'Instagram' above):</label>
                     <input type="text"
                         className="form-control"
                         name="newInstagramURL"
@@ -157,15 +186,17 @@ export default class Florists extends React.Component {
                         onChange={this.updateFormField} />
                 </div>
                 <div>
-                    <label className="form-label">Facebook URL (If available):</label>
+                    <label className="form-label">Facebook URL (Please fill this field if you have ticked 'Facebook' above):</label>
                     <input type="text"
                         className="form-control"
                         name="newFacebookURL"
                         value={this.state.newFacebookURL}
                         onChange={this.updateFormField} />
-                </div>
-                
+                </div>                
             </div>
+
+            <button className="btn btn-primary"
+                    onClick={()=>this.createAccount()}>Create New Account</button>
         </React.Fragment>
     }
 }
