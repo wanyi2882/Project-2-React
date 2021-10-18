@@ -38,7 +38,7 @@ export default class Admin extends React.Component{
         }
         
         if (this.state.newListingCategory.length < 1) {
-            error = error + "please choose at least one flower type" + "\n"
+            error = error + "Please choose at least one flower type" + "\n"
         } 
         
         if (parseFloat(this.state.newListingPrice) <= 0) {
