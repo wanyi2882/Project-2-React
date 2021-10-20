@@ -5,7 +5,6 @@ export default class LoginFlorists extends React.Component {
 
     url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
 
-
     state = {
         'data': [
 
@@ -13,7 +12,8 @@ export default class LoginFlorists extends React.Component {
         'loginUserName': "",
         'loginEmail': "",
         'displayProfile': false,
-        'displayLogin': true
+        'displayLogin': true,
+        'responseStatus': ""
     }
 
     fetchData = async () => {
@@ -22,21 +22,34 @@ export default class LoginFlorists extends React.Component {
             + "&"
             + "login_email=" + this.state.loginEmail)
 
-        if (response.status == 200) {
-            this.setState({
-                'data': response.data,
-                'displayProfile': true,
-                'displayLogin': false
-            })
-        } else if (response.status == 400){
-        }
-
-        console.log(response)
-        console.log(response.data)
+        this.setState({
+            'data': response.data,
+            'responseStatus': response.status
+        })
     }
 
     componentDidMount() {
         this.fetchData()
+    }
+
+    componentDidUpdate(prevState) {
+        if (this.state.loginUserName !== prevState.loginUserName && this.state.loginEmail !== prevState.loginEmail) {
+            this.fetchData(this.state.loginUserName, this.state.loginEmail);
+        }
+    }
+
+    seeProfileBtn = () => {
+        this.fetchData()
+
+        if (this.state.responseStatus == 200) {
+            this.setState({
+                'displayProfile': true,
+                'displayLogin': false
+            })
+            alert("Successful")
+        } else {
+            alert("Check Again")
+        }
     }
 
     updateFormField = (event) => {
@@ -68,13 +81,12 @@ export default class LoginFlorists extends React.Component {
                     </div>
                     <div>
                         <button className="btn btn-primary"
-                            onClick={() => this.fetchData()}>See your profile</button>
+                            onClick={() => this.seeProfileBtn()}>See your profile</button>
                     </div>
                 </div>
             </React.Fragment>
         }
     }
-
 
     showProfile = () => {
         if (this.state.displayProfile) {
@@ -85,13 +97,10 @@ export default class LoginFlorists extends React.Component {
         }
     }
 
-
     render() {
         return <React.Fragment>
             {this.displayLogin()}
             {this.showProfile()}
         </React.Fragment>
     }
-
-
 }
