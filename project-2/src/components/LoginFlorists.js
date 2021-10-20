@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import EditFlorists from './EditFlorists'
 
 export default class LoginFlorists extends React.Component {
 
@@ -13,7 +14,16 @@ export default class LoginFlorists extends React.Component {
         'loginEmail': "",
         'displayProfile': false,
         'displayLogin': true,
-        'responseStatus': ""
+        'responseStatus': "",
+        'displayEdit': false,
+        'profileBeingEdited': {},
+        'editUsername': "",
+        'editLoginEmail': "",
+        'editFloristName': "",
+        'editContactCategory': [],
+        'editInstagramURL': "",
+        'editFacebookURL': "",
+        'editContactNumber': ""
     }
 
     fetchData = async () => {
@@ -58,6 +68,10 @@ export default class LoginFlorists extends React.Component {
         })
     }
 
+    createProfileBtn = () =>{
+        this.props.onGoToCreateProfile()
+    }
+
     displayLogin = () => {
         if (this.state.displayLogin) {
             return <React.Fragment>
@@ -81,10 +95,41 @@ export default class LoginFlorists extends React.Component {
                     </div>
                     <div>
                         <button className="btn btn-primary"
-                            onClick={() => this.seeProfileBtn()}>See your profile</button>
+                                onClick={() => this.seeProfileBtn()}>See your profile</button>
+                        <button className="btn btn-danger"
+                                onClick={() => this.createProfileBtn()}>New? Create A New Profile</button>
                     </div>
                 </div>
             </React.Fragment>
+        }
+    }
+
+    EditForm = (each) => {
+
+        this.setState({
+            'displayEdit': true,
+            'profileBeingEdited': each,
+            'editUsername': each.username,
+            'editLoginEmail': each.login_email,
+            'editFloristName': each.name,
+            'editContactCategory': each.contact_method,
+            'editInstagramURL': each.contact.instagram,
+            'editFacebookURL': each.contact.facebook,
+            'editContactNumber': each.contact.number,
+        })
+    }
+
+    displayForms = () => {
+        if (this.state.displayEdit == true){
+            return < EditFlorists 
+                    modifiedUsername = {this.state.editUsername}
+                    modifiedLoginEmail = {this.state.editLoginEmail}
+                    modifiedFloristName = {this.state.editFloristName}
+                    modifiedContactCategory = {this.state.editContactCategory}
+                    modifiedInstagramURL = {this.state.editInstagramURL}
+                    modifiedFacebookURL = {this.state.editFacebookURL}
+                    modifiedContactNumber = {this.state.editContactNumber}
+                    updateFormField ={this.updateFormField}/>
         }
     }
 
@@ -92,7 +137,14 @@ export default class LoginFlorists extends React.Component {
         if (this.state.displayProfile) {
             return <React.Fragment>
                 <div>{this.state.data.map(each =>
-                    <div>{each.name}</div>)}</div>
+                    <div key={each._id}>
+                        <h1>Welcome Back {each.name} !</h1>
+                        <button onClick={() => this.EditForm(each)}>Edit Your Profile</button>
+                        <button>Add / View / Edit / Delete Your Listings</button>
+                        <button>Delete Your Profile</button>
+                    </div>)}
+                </div>
+                {this.displayForms()}
             </React.Fragment>
         }
     }
