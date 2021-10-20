@@ -23,14 +23,19 @@ export default class Listing extends React.Component {
                                                 + "flower_type=" + this.state.searchCategory
                                                 + "&"
                                                 + "occasion=" + this.state.occasion)
+        
+        //Sort by descending date (Default)                                         
+        let array = response.data
+        array.sort(function(a, b) {
+            if(a.date_listed < b.date_listed) return 1;
+            if(a.date_listed > b.date_listed) return -1;
+            return 0;
+        });
 
         this.setState({
-            'data': response.data,
+            'data': array,
             'dropdown': false
         })
-
-        console.log(response)
-        console.log(response.data)
     }
 
     componentDidMount() {
