@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-export default class EditFlorists extends React.Component{
+export default class EditFlorists extends React.Component {
 
     url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
 
@@ -48,6 +48,21 @@ export default class EditFlorists extends React.Component{
                 [event.target.name]: cloned
             })
 
+            if (!cloned.includes("whatsapp")) {
+                this.setState({
+                    'modifiedContactNumber': ""
+                })
+            }
+            if (!cloned.includes("instagram")) {
+                this.setState({
+                    'modifiedInstagramURL': ""
+                })
+            }
+            if (!cloned.includes("facebook")) {
+                this.setState({
+                    'modifiedFacebookURL': ""
+                })
+            }
 
         } else {
             // clone the array
@@ -55,16 +70,32 @@ export default class EditFlorists extends React.Component{
             this.setState({
                 [event.target.name]: cloned
             })
+
+            if (!cloned.includes("whatsapp")) {
+                this.setState({
+                    'modifiedContactNumber': ""
+                })
+            }
+            if (!cloned.includes("instagram")) {
+                this.setState({
+                    'modifiedInstagramURL': ""
+                })
+            }
+            if (!cloned.includes("facebook")) {
+                this.setState({
+                    'modifiedFacebookURL': ""
+                })
+            }
         }
     }
 
-    createAccount = () => {
+    confirmEdit = () => {
         let error = ""
         if (this.state.modifiedUsername.length < 8) {
             error = error + "Please enter a username with at least 8 characters." + "\n"
         }
 
-        if (!this.state.modifiedLoginEmail.includes("@") || !this.state.newLoginEmail.includes(".")) {
+        if (!this.state.modifiedLoginEmail.includes("@") || !this.state.modifiedLoginEmail.includes(".")) {
             error = error + "Please enter a valid email address." + "\n"
         }
 
@@ -97,7 +128,7 @@ export default class EditFlorists extends React.Component{
         if (error == "") {
             this.sendData()
             alert("Profile Succesfully Edited!")
-            
+
         } else {
             alert(error)
         }

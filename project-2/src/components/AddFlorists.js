@@ -50,6 +50,21 @@ export default class AddFlorists extends React.Component {
                 [event.target.name]: cloned
             })
 
+            if (!cloned.includes("whatsapp")){
+                this.setState({
+                    'newContactNumber': ""
+                })
+            }
+            if(!cloned.includes("instagram")){
+                this.setState({
+                    'newInstagramURL': ""
+                })                
+            }
+            if(!cloned.includes("facebook")){
+                this.setState({
+                    'newFacebookURL': ""
+                })                
+            }
 
         } else {
             // clone the array
@@ -57,6 +72,21 @@ export default class AddFlorists extends React.Component {
             this.setState({
                 [event.target.name]: cloned
             })
+            if (!cloned.includes("whatsapp")){
+                this.setState({
+                    'newContactNumber': ""
+                })
+            }
+            if(!cloned.includes("instagram")){
+                this.setState({
+                    'newInstagramURL': ""
+                })                
+            }
+            if(!cloned.includes("facebook")){
+                this.setState({
+                    'newFacebookURL': ""
+                })                
+            }
         }
     }
 
