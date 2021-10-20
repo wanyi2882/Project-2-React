@@ -60,6 +60,8 @@ export default class Admin extends React.Component{
         if (error == "") {
             this.sendData()
             alert ("Successful submission")
+
+            this.props.onAfterAddListing()
         } else {
             alert(error)
         }

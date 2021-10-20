@@ -99,6 +99,9 @@ export default class AddFlorists extends React.Component {
         if (error == "") {
             this.sendData()
             alert("Account Succesfully Created!")
+
+            this.props.onAfterAddFlorist()
+            
         } else {
             alert(error)
         }
