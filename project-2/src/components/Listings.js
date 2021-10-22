@@ -4,7 +4,7 @@ import "../components-css/Listings.css"
 
 export default class Listing extends React.Component {
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
     state = {
         'data': [
 
@@ -246,7 +246,7 @@ export default class Listing extends React.Component {
                                             'display': true
                                         })
                                     }}>
-                                    <img className="card-img-top card-image img-fluid"
+                                    <img className="card-img-top card-image"
                                         src={listings.image} />
                                     <div className="card-body">
                                         <h3 className="card-title">{listings.name}</h3>

@@ -5,7 +5,7 @@ import axios from 'axios'
 
 export default class Admin extends React.Component{
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
 
 
     sendData = async () => {
