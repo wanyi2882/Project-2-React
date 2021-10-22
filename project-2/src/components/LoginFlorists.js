@@ -1,10 +1,11 @@
 import React from 'react'
 import axios from 'axios'
 import EditFlorists from './EditFlorists'
+import FloristViewListings from './FloristViewListings'
 
 export default class LoginFlorists extends React.Component {
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
 
     state = {
         'data': [
@@ -17,13 +18,16 @@ export default class LoginFlorists extends React.Component {
         'responseStatus': "",
         'displayEdit': false,
         'profileBeingEdited': {},
+        'editFloristId': "",
         'editUsername': "",
         'editLoginEmail': "",
         'editFloristName': "",
         'editContactCategory': [],
         'editInstagramURL': "",
         'editFacebookURL': "",
-        'editContactNumber': ""
+        'editContactNumber': "",
+        'floristViewListings': false,
+        'floristViewListingsLoginEmail': ""
     }
 
     fetchData = async () => {
@@ -105,10 +109,10 @@ export default class LoginFlorists extends React.Component {
     }
 
     EditForm = (each) => {
-
         this.setState({
             'displayEdit': true,
             'profileBeingEdited': each,
+            'editFloristId': each._id,
             'editUsername': each.username,
             'editLoginEmail': each.login_email,
             'editFloristName': each.name,
@@ -117,6 +121,35 @@ export default class LoginFlorists extends React.Component {
             'editFacebookURL': each.contact.facebook,
             'editContactNumber': each.contact.number,
         })
+    }
+
+    FloristViewListings = (each) =>{
+
+        this.setState({
+            'floristViewListings': true,
+            'displayEdit': false
+        })
+
+    }
+
+    afterConfirmEditFlorist = () => {
+        this.setState({
+            'displayEdit': false,
+            'displayLogin': true,
+            'displayProfile': false,
+            'loginUserName': "",
+            'loginEmail': "",        
+            'profileBeingEdited': {},
+            'editFloristId': "",
+            'editUsername': "",
+            'editLoginEmail': "",
+            'editFloristName': "",
+            'editContactCategory': [],
+            'editInstagramURL': "",
+            'editFacebookURL': "",
+            'editContactNumber': ""
+        })
+
     }
 
     displayForms = () => {
@@ -129,7 +162,12 @@ export default class LoginFlorists extends React.Component {
                     modifiedInstagramURL = {this.state.editInstagramURL}
                     modifiedFacebookURL = {this.state.editFacebookURL}
                     modifiedContactNumber = {this.state.editContactNumber}
-                    updateFormField ={this.updateFormField}/>
+                    modifiedFloristId = {this.state.editFloristId}
+                    updateFormField = {this.updateFormField}
+                    afterConfirmEditFlorist = {this.afterConfirmEditFlorist}/>
+        } else if (this.state.floristViewListings == true){
+            return < FloristViewListings 
+                    floristViewListingsLoginEmail = {this.state.loginEmail}/>
         }
     }
 
@@ -140,7 +178,7 @@ export default class LoginFlorists extends React.Component {
                     <div key={each._id}>
                         <h1>Welcome Back {each.name} !</h1>
                         <button onClick={() => this.EditForm(each)}>Edit Your Profile</button>
-                        <button>Add / View / Edit / Delete Your Listings</button>
+                        <button onClick={() => this.FloristViewListings(each)}>Add / View / Edit / Delete Your Listings</button>
                         <button>Delete Your Profile</button>
                     </div>)}
                 </div>
