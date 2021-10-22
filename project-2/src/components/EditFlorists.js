@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default class EditFlorists extends React.Component {
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
 
     state = {
         'modifiedUsername': this.props.modifiedUsername,
@@ -12,11 +12,12 @@ export default class EditFlorists extends React.Component {
         'modifiedContactCategory': this.props.modifiedContactCategory,
         'modifiedInstagramURL': this.props.modifiedInstagramURL,
         'modifiedFacebookURL': this.props.modifiedFacebookURL,
-        'modifiedContactNumber': this.props.modifiedContactNumber
+        'modifiedContactNumber': this.props.modifiedContactNumber,
+        'floristId': this.props.modifiedFloristId
     }
 
     sendData = async () => {
-        await axios.put(this.url + "/florists",
+        await axios.put(this.url + "/florists/" + this.state.floristId,
             {
                 "username": this.state.modifiedUsername,
                 "login_email": this.state.modifiedLoginEmail,
@@ -89,7 +90,7 @@ export default class EditFlorists extends React.Component {
         }
     }
 
-    confirmEdit = () => {
+    confirmEditFlorist = () => {
         let error = ""
         if (this.state.modifiedUsername.length < 8) {
             error = error + "Please enter a username with at least 8 characters." + "\n"
@@ -129,6 +130,7 @@ export default class EditFlorists extends React.Component {
             this.sendData()
             alert("Profile Succesfully Edited!")
 
+            this.props.afterConfirmEditFlorist()
         } else {
             alert(error)
         }
@@ -239,7 +241,8 @@ export default class EditFlorists extends React.Component {
                 </div>
             </div>
 
-            <button className="btn btn-primary">Confirm Edit Profile</button>
+            <button className="btn btn-primary"
+                    onClick={()=>this.confirmEditFlorist()}>Confirm Edit Profile</button>
         </React.Fragment>
     }
 }
