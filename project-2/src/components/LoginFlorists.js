@@ -26,7 +26,7 @@ export default class LoginFlorists extends React.Component {
         'editFacebookURL': "",
         'editContactNumber': "",
         'floristViewListings': false,
-        'floristViewListingsLoginEmail': ""
+        'floristViewListingsId': ""
     }
 
     fetchData = async () => {
@@ -123,8 +123,11 @@ export default class LoginFlorists extends React.Component {
 
         this.setState({
             'floristViewListings': true,
-            'displayEdit': false
+            'displayEdit': false,
+            'floristViewListingsId': each._id
         })
+
+        console.log(this.state.floristViewListingsId)
 
     }
 
@@ -163,7 +166,7 @@ export default class LoginFlorists extends React.Component {
                     afterConfirmEditFlorist = {this.afterConfirmEditFlorist}/>
         } else if (this.state.floristViewListings == true){
             return < FloristViewListings 
-                    floristViewListingsLoginEmail = {this.state.loginEmail}/>
+                    floristViewListingsId = {this.state.floristViewListingsId}/>
         }
     }
 
@@ -174,7 +177,7 @@ export default class LoginFlorists extends React.Component {
                     <div key={each._id}>
                         <h1>Welcome Back {each.name} !</h1>
                         <button onClick={() => this.EditForm(each)}>Edit Your Profile</button>
-                        <button onClick={() => this.FloristViewListings(each)}>Add / View / Edit / Delete Your Listings</button>
+                        <button onClick={() => this.FloristViewListings(each)}>View Your Listings</button>
                         <button>Delete Your Profile</button>
                     </div>)}
                 </div>
