@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Roboto&display=swap');
+
+#logo{
+    background-image: url("logo.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50vw;
+}
+
+.nav-link{
+    font-family: 'Roboto', sans-serif;
+    color: black !important;
+}
