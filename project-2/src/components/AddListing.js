@@ -5,7 +5,7 @@ import axios from 'axios'
 
 export default class Admin extends React.Component{
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
 
 
     sendData = async () => {
@@ -16,7 +16,13 @@ export default class Admin extends React.Component{
                                                     "price": parseFloat(this.state.newListingPrice),
                                                     "occasion": this.state.newListingOccasion,
                                                     "quantity": parseInt(this.state.newListingQuantity),
-                                                    "image": this.state.newListingImage
+                                                    "image": this.state.newListingImage,
+                                                    "florist_id": this.state.florist_id,
+                                                    "florist_name": this.state.florist_name,
+                                                    "number": this.state.number,
+                                                    "instagram": this.state.instagram,
+                                                    "facebook": this.state.facebook,
+                                                    "contact_method": this.state.contact_method
                                                 })
 
     }
@@ -28,7 +34,13 @@ export default class Admin extends React.Component{
         'newListingPrice': 0,
         'newListingQuantity': 0,
         'newListingOccasion': [],
-        'newListingImage': ""
+        'newListingImage': "",
+        'florist_id': this.props.florist_id,
+        'florist_name': this.props.florist_name,
+        'number': this.props.number,
+        'instagram': this.props.instagram,
+        'facebook': this.props.facebook,
+        'contact_method': this.props.contact_method
     }
 
     onSubmitForm = () => {
