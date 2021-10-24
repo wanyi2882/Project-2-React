@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default class AddFlorists extends React.Component {
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
 
     state = {
         'newUserName': "",
@@ -50,20 +50,20 @@ export default class AddFlorists extends React.Component {
                 [event.target.name]: cloned
             })
 
-            if (!cloned.includes("whatsapp")){
+            if (!cloned.includes("whatsapp")) {
                 this.setState({
                     'newContactNumber': ""
                 })
             }
-            if(!cloned.includes("instagram")){
+            if (!cloned.includes("instagram")) {
                 this.setState({
                     'newInstagramURL': ""
-                })                
+                })
             }
-            if(!cloned.includes("facebook")){
+            if (!cloned.includes("facebook")) {
                 this.setState({
                     'newFacebookURL': ""
-                })                
+                })
             }
 
         } else {
@@ -72,20 +72,20 @@ export default class AddFlorists extends React.Component {
             this.setState({
                 [event.target.name]: cloned
             })
-            if (!cloned.includes("whatsapp")){
+            if (!cloned.includes("whatsapp")) {
                 this.setState({
                     'newContactNumber': ""
                 })
             }
-            if(!cloned.includes("instagram")){
+            if (!cloned.includes("instagram")) {
                 this.setState({
                     'newInstagramURL': ""
-                })                
+                })
             }
-            if(!cloned.includes("facebook")){
+            if (!cloned.includes("facebook")) {
                 this.setState({
                     'newFacebookURL': ""
-                })                
+                })
             }
         }
     }
@@ -131,11 +131,15 @@ export default class AddFlorists extends React.Component {
             alert("Account Succesfully Created!")
 
             this.props.onAfterAddFlorist()
-            
+
         } else {
             alert(error)
         }
 
+    }
+
+    cancelAccount = () => {
+        this.props.onAfterAddFlorist()
     }
 
     render() {
@@ -244,6 +248,9 @@ export default class AddFlorists extends React.Component {
 
             <button className="btn btn-primary"
                 onClick={() => this.createAccount()}>Create New Account</button>
+
+            <button className="btn btn-danger"
+                onClick={() => this.cancelAccount()}>Cancel</button>
         </React.Fragment>
     }
 }
