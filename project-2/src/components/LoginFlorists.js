@@ -5,7 +5,7 @@ import FloristViewListings from './FloristViewListings'
 
 export default class LoginFlorists extends React.Component {
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
 
     state = {
         'data': [
@@ -15,7 +15,6 @@ export default class LoginFlorists extends React.Component {
         'loginEmail': "",
         'displayProfile': false,
         'displayLogin': true,
-        'responseStatus': "",
         'displayEdit': false,
         'profileBeingEdited': {},
         'editFloristId': "",
@@ -38,7 +37,6 @@ export default class LoginFlorists extends React.Component {
 
         this.setState({
             'data': response.data,
-            'responseStatus': response.status
         })
     }
 
@@ -46,24 +44,22 @@ export default class LoginFlorists extends React.Component {
         this.fetchData()
     }
 
-    componentDidUpdate(prevState) {
-        if (this.state.loginUserName !== prevState.loginUserName && this.state.loginEmail !== prevState.loginEmail) {
-            this.fetchData(this.state.loginUserName, this.state.loginEmail);
-        }
+    seeProfileBtn = () => {
+        this.fetchData().then(
+            this.action1,this.action2
+        )}
+
+
+    action1 = () => {
+        this.setState({
+            'displayProfile': true,
+            'displayLogin': false
+        })
+        alert("Successful")        
     }
 
-    seeProfileBtn = () => {
-        this.fetchData()
-
-        if (this.state.responseStatus == 200) {
-            this.setState({
-                'displayProfile': true,
-                'displayLogin': false
-            })
-            alert("Successful")
-        } else {
-            alert("Check Again")
-        }
+    action2 = () => {
+        alert("Check Again")
     }
 
     updateFormField = (event) => {
