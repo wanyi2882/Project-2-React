@@ -34,7 +34,7 @@ export default class FloristViewListings extends React.Component{
             <button className="btn btn-danger">Add New Listing</button>
 
             {this.state.data.map(listing => 
-            (this.state.floristId == listing.florist._id) ? 
+            (this.state.floristId == listing.florist.florist_id) ? 
             <div>
                 <h6>{listing.name} dated <Moment format="D MMM YYYY">{listing.date_listed}</Moment></h6>
                 <button>Edit Listing</button>
