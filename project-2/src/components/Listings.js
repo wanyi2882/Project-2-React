@@ -1,10 +1,12 @@
 import React from 'react'
 import axios from 'axios'
 import "../components-css/Listings.css"
+import Moment from 'react-moment';
+
 
 export default class Listing extends React.Component {
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
     state = {
         'data': [
 
@@ -250,7 +252,8 @@ export default class Listing extends React.Component {
                                         src={listings.image} />
                                     <div className="card-body">
                                         <h3 className="card-title">{listings.name}</h3>
-                                        <h4>By <span>{listings.florist.name}</span></h4>
+                                        <h4>Listed <Moment format="D MMM YYYY">{listings.date_listed}</Moment></h4>
+                                        <h4>By <span>{listings.florist.florist_name}</span></h4>
                                         <h5>${listings.price}</h5>
                                     </div>
                                 </div>
