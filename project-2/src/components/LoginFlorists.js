@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import EditFlorists from './EditFlorists'
 import FloristViewListings from './FloristViewListings'
+import AddListing from './AddListing'
 
 export default class LoginFlorists extends React.Component {
 
@@ -26,7 +27,8 @@ export default class LoginFlorists extends React.Component {
         'editFacebookURL': "",
         'editContactNumber': "",
         'floristViewListings': false,
-        'floristViewListingsId': ""
+        'floristViewListingsId': "",
+        'addListing': false
     }
 
     fetchData = async () => {
@@ -37,6 +39,7 @@ export default class LoginFlorists extends React.Component {
 
         this.setState({
             'data': response.data,
+            'floristViewListingsId': response.data[0]._id
         })
     }
 
@@ -48,7 +51,6 @@ export default class LoginFlorists extends React.Component {
         this.fetchData().then(
             this.action1,this.action2
         )}
-
 
     action1 = () => {
         this.setState({
@@ -116,19 +118,17 @@ export default class LoginFlorists extends React.Component {
             'editInstagramURL': each.contact.instagram,
             'editFacebookURL': each.contact.facebook,
             'editContactNumber': each.contact.number,
+            'floristViewListings': false,
+            'addListing': false
         })
     }
 
     FloristViewListings = (each) =>{
-
         this.setState({
             'floristViewListings': true,
             'displayEdit': false,
-            'floristViewListingsId': each._id
+            'addListing': false
         })
-
-        console.log(this.state.floristViewListingsId)
-
     }
 
     afterConfirmEditFlorist = () => {
@@ -151,6 +151,15 @@ export default class LoginFlorists extends React.Component {
 
     }
 
+    AddListingForm = () => {
+        console.log(this.state.data[0])
+        this.setState({
+            'floristViewListings': false,
+            'displayEdit': false,
+            'addListing': true
+        })
+    }
+
     displayForms = () => {
         if (this.state.displayEdit == true){
             return < EditFlorists 
@@ -167,6 +176,15 @@ export default class LoginFlorists extends React.Component {
         } else if (this.state.floristViewListings == true){
             return < FloristViewListings 
                     floristViewListingsId = {this.state.floristViewListingsId}/>
+        } else if (this.state.addListing == true){
+            return <AddListing 
+            florist_id = {this.state.data[0]._id}
+            florist_name = {this.state.data[0].name}
+            number = {this.state.data[0].contact.number}
+            instagram = {this.state.data[0].contact.instagram}
+            facebook = {this.state.data[0].contact.facebook}
+            contact_method = {this.state.data[0].contact_method}
+            onAfterAddListing = {this.FloristViewListings}/>
         }
     }
 
@@ -177,6 +195,7 @@ export default class LoginFlorists extends React.Component {
                     <div key={each._id}>
                         <h1>Welcome Back {each.name} !</h1>
                         <button onClick={() => this.EditForm(each)}>Edit Your Profile</button>
+                        <button onClick={() => this.AddListingForm()}>Add New Listing</button>
                         <button onClick={() => this.FloristViewListings(each)}>View Your Listings</button>
                         <button>Delete Your Profile</button>
                     </div>)}
