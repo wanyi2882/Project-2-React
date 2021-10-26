@@ -13,7 +13,16 @@ export default class FloristViewListings extends React.Component{
         ],
         'active': "displayViewAllListings",
         'floristId': this.props.floristViewListingsId,
-        'displayModalBox': false
+        'displayModalBox': false,
+        'listingToBeEdited': {},
+        'listingIdToBeEdited': "",
+        'listingNameToBeEdited': "",
+        'listingDescriptionToBeEdited': "",
+        'listingFlowerTypeToBeEdited': [],
+        'listingPriceToBeEdited': 0,
+        'listingOccasionToBeEdited': [],
+        'listingQuantityToBeEdited': 0,
+        'listingImageToBeEdited': ""
     }
 
     fetchData = async () => {
@@ -30,9 +39,18 @@ export default class FloristViewListings extends React.Component{
         this.fetchData()
     }
 
-    diplayEditModalBox = () => {
+    diplayEditModalBox = (listing) => {
         this.setState({
-            'displayModalBox': true
+            'displayModalBox': true,
+            'listingToBeEdited': listing,
+            'listingIdToBeEdited': listing._id,
+            'listingNameToBeEdited': listing.name,
+            'listingDescriptionToBeEdited': listing.description,
+            'listingFlowerTypeToBeEdited': listing.flower_type,
+            'listingPriceToBeEdited': listing.price,
+            'listingOccasionToBeEdited': listing.occasion,
+            'listingQuantityToBeEdited': listing.quantity,
+            'listingImageToBeEdited': listing.image
         })
     }
 
@@ -46,7 +64,16 @@ export default class FloristViewListings extends React.Component{
     renderModal() {
         if (this.state.displayModalBox) {
             return <EditListing 
-                    displayViewAllListings = {this.onAfterEditListings}/>
+                    displayViewAllListings = {this.onAfterEditListings}
+                    listingToBeEdited = {this.state.listingToBeEdited}
+                    listingIdToBeEdited = {this.state.listingIdToBeEdited}
+                    listingNameToBeEdited = {this.state.listingNameToBeEdited}
+                    listingDescriptionToBeEdited = {this.state.listingDescriptionToBeEdited}
+                    listingFlowerTypeToBeEdited = {this.state.listingFlowerTypeToBeEdited}
+                    listingPriceToBeEdited = {this.state.listingPriceToBeEdited}
+                    listingOccasionToBeEdited = {this.state.listingOccasionToBeEdited}
+                    listingQuantityToBeEdited = {this.state.listingQuantityToBeEdited}
+                    listingImageToBeEdited = {this.state.listingImageToBeEdited}/>
         } else {
             return null;
         }
@@ -59,7 +86,7 @@ export default class FloristViewListings extends React.Component{
             (this.state.floristId == listing.florist.florist_id) ? 
             <div>
                 <h6>{listing.name} dated <Moment format="D MMM YYYY">{listing.date_listed}</Moment></h6>
-                <button onClick={() => {this.diplayEditModalBox()}}>Edit Listing</button>
+                <button onClick={() => {this.diplayEditModalBox(listing)}}>Edit Listing</button>
                 <button>Delete Listing</button>
             </div>
             : null
