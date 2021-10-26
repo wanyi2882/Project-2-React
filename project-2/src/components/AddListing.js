@@ -12,6 +12,7 @@ export default class Admin extends React.Component{
         await axios.post(this.url + "/listings",
                                                  {
                                                     "name": this.state.newListingName,
+                                                    "description": this.state.newListingDescription,
                                                     "flower_type": this.state.newListingCategory,
                                                     "price": parseFloat(this.state.newListingPrice),
                                                     "occasion": this.state.newListingOccasion,
