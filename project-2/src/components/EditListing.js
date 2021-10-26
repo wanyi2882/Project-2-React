@@ -11,9 +11,9 @@ export default class EditListing extends React.Component {
                 "name": this.state.listingNameToBeEdited,
                 "description": this.state.listingDescriptionToBeEdited,
                 "flower_type": this.state.listingFlowerTypeToBeEdited,
-                "price": this.state.listingPriceToBeEdited,
+                "price": parseFloat(this.state.listingPriceToBeEdited),
                 "occasion": this.state.listingOccasionToBeEdited,
-                "quantity": this.state.listingQuantityToBeEdited,
+                "quantity": parseInt(this.state.listingQuantityToBeEdited),
                 "image": this.state.listingImageToBeEdited,
                 "florist_id": this.state.listingToBeEdited.florist.florist_id,
                 "florist_name": this.state.listingToBeEdited.florist.florist_name,
@@ -23,6 +23,7 @@ export default class EditListing extends React.Component {
                 "facebook": this.state.listingToBeEdited.florist.contact.facebook
             })
     }
+
     state = {
         'listingToBeEdited': this.props.listingToBeEdited,
         'listingIdToBeEdited': this.props.listingIdToBeEdited,
@@ -32,7 +33,16 @@ export default class EditListing extends React.Component {
         'listingPriceToBeEdited': this.props.listingPriceToBeEdited,
         'listingOccasionToBeEdited': this.props.listingOccasionToBeEdited,
         'listingQuantityToBeEdited': this.props.listingQuantityToBeEdited,
-        'listingImageToBeEdited': this.props.listingImageToBeEdited
+        'listingImageToBeEdited': this.props.listingImageToBeEdited,
+        'error': {
+            'listingNameToBeEdited': "Please enter a name for your listing.",
+            'listingDescriptionToBeEdited': "Please provide a short description for your listing.",
+            'listingFlowerTypeToBeEdited': "Please pick at list one flower type.",
+            'listingPriceToBeEdited': "Price of listing should be more than 0.",
+            'listingQuantityToBeEdited': "Quantity should be more than 0.",
+            'listingOccasionToBeEdited': "Please pick at list one occasion.",
+            'listingImageToBeEdited': "Please choose image in jpeg/jpg/png format."
+        }
     }
 
     hideModalBox = () => {
@@ -69,10 +79,27 @@ export default class EditListing extends React.Component {
     }
 
     confirmEditBtn = () => {
-        this.sendData()
-        alert("Editing Submitted.")
 
-        this.props.displayViewAllListings()
+        if (this.state.listingNameToBeEdited.length < 1 ||
+            this.state.listingDescriptionToBeEdited.length < 1 ||
+            this.state.listingFlowerTypeToBeEdited.length < 1 ||
+            parseFloat(this.state.listingPriceToBeEdited) <= 0 ||
+            !parseFloat(this.state.listingPriceToBeEdited) ||
+            parseInt(this.state.listingQuantityToBeEdited) <= 0 ||
+            !parseInt(this.state.listingQuantityToBeEdited) ||
+            this.state.listingOccasionToBeEdited < 1 ||
+            (this.state.listingImageToBeEdited.endsWith(".jpg") ||
+                this.state.listingImageToBeEdited.endsWith(".png") ||
+                this.state.listingImageToBeEdited.endsWith(".jpeg"))
+        ) {
+            this.sendData()
+            alert("Editting Successful.")
+
+            this.props.displayViewAllListings()
+        }
+        else {
+            alert("Please check through all the fields.")
+        }
     }
 
 
@@ -108,6 +135,9 @@ export default class EditListing extends React.Component {
                                     required
                                     value={this.state.listingNameToBeEdited}
                                     onChange={this.updateFormField} />
+                                <div>{this.state.listingNameToBeEdited.length < 1 &&
+                                    <span className='error'>{this.state.error.listingNameToBeEdited}</span>}
+                                </div>
                             </div>
                             <div>
                                 <label className="form-label">Short Description: </label>
@@ -115,6 +145,9 @@ export default class EditListing extends React.Component {
                                     name="listingDescriptionToBeEdited"
                                     value={this.state.listingDescriptionToBeEdited}
                                     onChange={this.updateFormField} />
+                                <div>{this.state.listingDescriptionToBeEdited.length < 1 &&
+                                    <span className='error'>{this.state.error.listingDescriptionToBeEdited}</span>}
+                                </div>
                             </div>
                             <div>
                                 <div><label className="form-label">Flower Categories: </label></div>
@@ -185,6 +218,9 @@ export default class EditListing extends React.Component {
                                     </label>
                                 </div>
                             </div>
+                            <div>{this.state.listingFlowerTypeToBeEdited.length < 1 &&
+                                <span className='error'>{this.state.error.listingFlowerTypeToBeEdited}</span>}
+                            </div>
 
                             <div>
                                 <div><label className="form-label">Occasion:</label></div>
@@ -244,6 +280,9 @@ export default class EditListing extends React.Component {
                                     </label>
                                 </div>
                             </div>
+                            <div>{this.state.listingOccasionToBeEdited.length < 1 &&
+                                <span className='error'>{this.state.error.listingOccasionToBeEdited}</span>}
+                            </div>
 
                             <div>
                                 <label className="form-label">Price (SGD): </label>
@@ -251,6 +290,10 @@ export default class EditListing extends React.Component {
                                     name="listingPriceToBeEdited"
                                     value={this.state.listingPriceToBeEdited}
                                     onChange={this.updateFormField} />
+                                <div>{(parseFloat(this.state.listingPriceToBeEdited) <= 0 ||
+                                    !parseFloat(this.state.listingPriceToBeEdited)) &&
+                                    <span className='error'>{this.state.error.listingPriceToBeEdited}</span>}
+                                </div>
                             </div>
                             <div>
                                 <label className="form-label">Quantity Available: </label>
@@ -258,6 +301,10 @@ export default class EditListing extends React.Component {
                                     name="listingQuantityToBeEdited"
                                     value={this.state.listingQuantityToBeEdited}
                                     onChange={this.updateFormField} />
+                                <div>{(parseInt(this.state.listingQuantityToBeEdited) <= 0 ||
+                                    !parseInt(this.state.listingQuantityToBeEdited)) &&
+                                    <span className='error'>{this.state.error.listingQuantityToBeEdited}</span>}
+                                </div>
                             </div>
                             <div>
                                 <label className="form-label">URL of bouquet image:</label>
@@ -266,8 +313,12 @@ export default class EditListing extends React.Component {
                                     name="listingImageToBeEdited"
                                     value={this.state.listingImageToBeEdited}
                                     onChange={this.updateFormField} />
+                                <div>{(!this.state.listingImageToBeEdited.endsWith(".jpg") &&
+                                    !this.state.listingImageToBeEdited.endsWith(".png") &&
+                                    !this.state.listingImageToBeEdited.endsWith(".jpeg")) &&
+                                    <span className='error'>{this.state.error.listingImageToBeEdited}</span>}
+                                </div>
                             </div>
-
 
                         </div>
                         <div>
@@ -275,12 +326,12 @@ export default class EditListing extends React.Component {
                         </div>
                         <div className="modal-footer">
                             <button type="button"
-                                    className="btn btn-primary"
-                                    onClick={()=>this.confirmEditBtn()}>Confirm Edit</button>
+                                className="btn btn-primary"
+                                onClick={() => this.confirmEditBtn()}>Confirm Edit</button>
                             <button type="button"
-                                    className="btn btn-secondary"
-                                    data-dismiss="modal"
-                                    onClick={this.hideModalBox}>Close
+                                className="btn btn-secondary"
+                                data-dismiss="modal"
+                                onClick={this.hideModalBox}>Close
                             </button>
                         </div>
                     </div>
