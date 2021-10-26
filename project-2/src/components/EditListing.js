@@ -1,6 +1,28 @@
 import React from "react";
+import axios from "axios";
 
 export default class EditListing extends React.Component {
+
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
+
+    sendData = async () => {
+        await axios.put(this.url + "/listings/" + this.state.listingIdToBeEdited,
+            {
+                "name": this.state.listingNameToBeEdited,
+                "description": this.state.listingDescriptionToBeEdited,
+                "flower_type": this.state.listingFlowerTypeToBeEdited,
+                "price": this.state.listingPriceToBeEdited,
+                "occasion": this.state.listingOccasionToBeEdited,
+                "quantity": this.state.listingQuantityToBeEdited,
+                "image": this.state.listingImageToBeEdited,
+                "florist_id": this.state.listingToBeEdited.florist.florist_id,
+                "florist_name": this.state.listingToBeEdited.florist.florist_name,
+                "contact_method": this.state.listingToBeEdited.florist.contact_method,
+                "number": this.state.listingToBeEdited.florist.contact.number,
+                "instagram": this.state.listingToBeEdited.florist.contact.instagram,
+                "facebook": this.state.listingToBeEdited.florist.contact.facebook
+            })
+    }
     state = {
         'listingToBeEdited': this.props.listingToBeEdited,
         'listingIdToBeEdited': this.props.listingIdToBeEdited,
@@ -44,6 +66,13 @@ export default class EditListing extends React.Component {
                 [event.target.name]: cloned
             })
         }
+    }
+
+    confirmEditBtn = () => {
+        this.sendData()
+        alert("Editing Submitted.")
+
+        this.props.displayViewAllListings()
     }
 
 
@@ -241,11 +270,17 @@ export default class EditListing extends React.Component {
 
 
                         </div>
+                        <div>
+
+                        </div>
                         <div className="modal-footer">
                             <button type="button"
-                                className="btn btn-secondary"
-                                data-dismiss="modal"
-                                onClick={this.hideModalBox}>Close
+                                    className="btn btn-primary"
+                                    onClick={()=>this.confirmEditBtn()}>Confirm Edit</button>
+                            <button type="button"
+                                    className="btn btn-secondary"
+                                    data-dismiss="modal"
+                                    onClick={this.hideModalBox}>Close
                             </button>
                         </div>
                     </div>

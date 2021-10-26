@@ -55,6 +55,8 @@ export default class FloristViewListings extends React.Component{
     }
 
     onAfterEditListings = () => {
+        this.fetchData()
+
         this.setState({
             'active': "displayViewAllListings",
             'displayModalBox': false
