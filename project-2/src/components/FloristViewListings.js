@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Moment from 'react-moment';
+import EditListing from './EditListing'
 
 export default class FloristViewListings extends React.Component{
 
@@ -11,7 +12,8 @@ export default class FloristViewListings extends React.Component{
 
         ],
         'active': "displayViewAllListings",
-        'floristId': this.props.floristViewListingsId
+        'floristId': this.props.floristViewListingsId,
+        'displayModalBox': false
     }
 
     fetchData = async () => {
@@ -28,20 +30,43 @@ export default class FloristViewListings extends React.Component{
         this.fetchData()
     }
 
+    diplayEditModalBox = () => {
+        this.setState({
+            'displayModalBox': true
+        })
+    }
+
+    onAfterEditListings = () => {
+        this.setState({
+            'active': "displayViewAllListings",
+            'displayModalBox': false
+        })
+    }
+
+    renderModal() {
+        if (this.state.displayModalBox) {
+            return <EditListing 
+                    displayViewAllListings = {this.onAfterEditListings}/>
+        } else {
+            return null;
+        }
+    }
+
     render(){
         return <React.Fragment>
             <h1>View your listings</h1>
-            <button className="btn btn-danger">Add New Listing</button>
-
             {this.state.data.map(listing => 
             (this.state.floristId == listing.florist.florist_id) ? 
             <div>
                 <h6>{listing.name} dated <Moment format="D MMM YYYY">{listing.date_listed}</Moment></h6>
-                <button>Edit Listing</button>
+                <button onClick={() => {this.diplayEditModalBox()}}>Edit Listing</button>
                 <button>Delete Listing</button>
             </div>
             : null
         )}
+
+        <div>{this.renderModal()}</div>
+        
         </React.Fragment>
     }
 }
