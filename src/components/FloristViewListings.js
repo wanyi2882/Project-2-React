@@ -6,7 +6,7 @@ import DeleteListing from './DeleteListing'
 
 export default class FloristViewListings extends React.Component{
 
-    url = 'https://ywy-project2-fmp-express-app.herokuapp.com/'
+    url = 'https://ywy-project2-fmp-express-app.herokuapp.com'
 
     state = {
         'data': [

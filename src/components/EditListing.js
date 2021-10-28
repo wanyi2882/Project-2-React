@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default class EditListing extends React.Component {
 
-    url = 'https://ywy-project2-fmp-express-app.herokuapp.com/'
+    url = 'https://ywy-project2-fmp-express-app.herokuapp.com'
 
     sendData = async () => {
         await axios.put(this.url + "/listings/" + this.state.listingIdToBeEdited,

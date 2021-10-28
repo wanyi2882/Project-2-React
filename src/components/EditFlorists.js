@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default class EditFlorists extends React.Component {
 
-    url = 'https://ywy-project2-fmp-express-app.herokuapp.com/'
+    url = 'https://ywy-project2-fmp-express-app.herokuapp.com'
 
     state = {
         'modifiedUsername': this.props.modifiedUsername,

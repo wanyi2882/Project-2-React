@@ -8,7 +8,7 @@ import brokenImage from '../components-css/broken-image.jpeg'
 
 export default class Admin extends React.Component {
 
-    url = 'https://ywy-project2-fmp-express-app.herokuapp.com/'
+    url = 'https://ywy-project2-fmp-express-app.herokuapp.com'
 
 
     sendData = async () => {
