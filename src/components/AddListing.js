@@ -57,18 +57,20 @@ export default class Admin extends React.Component {
     }
 
     onSubmitForm = () => {
-        if (this.state.newListingName.length < 1 ||
-            this.state.newListingDescription.length < 1 ||
-            this.state.newListingCategory.length < 1 ||
-            parseFloat(this.state.newListingPrice) <= 0 ||
-            parseInt(this.state.newListingQuantity) <= 0 ||
-            this.state.newListingOccasion < 1 ||
+        if (!this.state.newListingName.length < 1 &&
+            !this.state.newListingDescription.length < 1 &&
+            !this.state.newListingCategory.length < 1 &&
+            !parseFloat(this.state.newListingPrice) <= 0 &&
+            !parseInt(this.state.newListingQuantity) <= 0 &&
+            !this.state.newListingOccasion < 1 &&
             (this.state.newListingImage.endsWith(".jpg") ||
                 this.state.newListingImage.endsWith(".png") ||
                 this.state.newListingImage.endsWith(".jpeg"))
         ) {
-            this.sendData()
-            alert("Successful submission")
+            this.sendData().then(
+                alert("Successful submission")
+            )
+            this.props.onAfterAddListing()
         }
         else {
             alert("Please check through all the fields.")
