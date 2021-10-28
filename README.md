@@ -17,7 +17,7 @@ Welcome to the Floral Market Place!
 
 A centralised platform where the public can find affordable and unique bouquets or flower arrangements for various occasions by freelance florists listing their flower arrangements/bouquets.
 
-URL of website: 
+URL of website: https://agitated-pike-b66fc1.netlify.app/
 
 ## 1A. Users, User Goals (User Story and Acceptance Criteria)
 
