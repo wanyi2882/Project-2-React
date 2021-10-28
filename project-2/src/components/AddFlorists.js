@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default class AddFlorists extends React.Component {
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
+    url = 'https://ywy-project2-fmp-express-app.herokuapp.com/'
 
     state = {
         'newUserName': "",
