@@ -7,7 +7,7 @@ import DeleteFlorists from './DeleteFlorists'
 
 export default class LoginFlorists extends React.Component {
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
+    url = 'https://ywy-project2-fmp-express-app.herokuapp.com'
 
     state = {
         'data': [
