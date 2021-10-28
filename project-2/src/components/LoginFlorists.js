@@ -237,7 +237,7 @@ export default class LoginFlorists extends React.Component {
         } else if (this.state.floristViewListings == true) {
             // Displays FloristsViewListings.js page
             return < FloristViewListings
-                floristViewListingsId={this.state.floristViewListingsId} />
+                floristProfile={this.state.data} />
 
         } else if (this.state.addListing == true) {
             // Displays AddListing.js Form
