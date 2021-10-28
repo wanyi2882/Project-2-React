@@ -52,7 +52,6 @@ export default class LoginFlorists extends React.Component {
     // After clicking the see profile button, if async function promise is successful, 
     // it will alert succesful login and display the profile of florist. 
     // Else, it will alert user to check their login in details, page remains at login.
-
     seeProfileBtn = () => {
         this.fetchData().then(
             this.action1, this.action2
@@ -72,7 +71,6 @@ export default class LoginFlorists extends React.Component {
     }
 
     // Update form fields 2 way binding
-
     updateFormField = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -81,14 +79,12 @@ export default class LoginFlorists extends React.Component {
 
     // Create a new florist profile button.
     // Renders AddFlorists.js from Florists.js via props.
-
     createProfileBtn = () => {
         this.props.onGoToCreateProfile()
     }
 
 
     // Displays the login form
-
     displayLogin = () => {
         if (this.state.displayLogin) {
             return <React.Fragment>
@@ -124,7 +120,6 @@ export default class LoginFlorists extends React.Component {
     // Sets the states for when edit button is clicked, to be sent to EditFlorists.js.
     // Edit florist information form.
     // Only 'displayEdit' is true. Other pages to be false.
-
     editForm = (each) => {
         this.setState({
             'displayEdit': true,
@@ -146,7 +141,6 @@ export default class LoginFlorists extends React.Component {
     // EditFlorists.js editing confirmation, bring florist to login page again.
     // Set all states for under EditFlorists to be empty.
     // 'displayLogin' as true, all other pages false.
-
     afterConfirmEditFlorist = () => {
         this.setState({
             'displayEdit': false,
@@ -168,7 +162,6 @@ export default class LoginFlorists extends React.Component {
 
     // sets the states for the when the delete profile button is clicked, 
     // to be sent to DeleteFlorists.js.
-
     deleteForm = () => {
         this.setState({
             'deleteFlorist': true,
@@ -180,7 +173,6 @@ export default class LoginFlorists extends React.Component {
 
     // Florists can view all the listing under them
     // Only 'floristViewListings' is true, the other pages to be false.
-
     floristViewListings = () => {
         this.setState({
             'floristViewListings': true,
@@ -192,7 +184,6 @@ export default class LoginFlorists extends React.Component {
 
     // Florist add new listing, addListingForm sets 'addListing' page to true.
     // Other pages to be false.
-
     addListingForm = () => {
         console.log(this.state.data[0])
         this.setState({
@@ -204,7 +195,6 @@ export default class LoginFlorists extends React.Component {
     }
 
     // After deleting florist profile, go back to main login page.
-
     onAfterDeleteFlorist = () => {
         this.setState({
             'displayLogin': true,
@@ -216,9 +206,18 @@ export default class LoginFlorists extends React.Component {
         })
     }
 
+    // After successfully adding new listing, go to FloristViewListing page.
+    onAfterAddListing = () => {
+        this.setState({
+            'floristViewListings': true,
+            'displayEdit': false,
+            'addListing': false,
+            'deleteFlorist': false
+        })
+    }
+
 
     // Render different forms 
-
     displayForms = () => {
         if (this.state.displayEdit == true) {
             // Displays EditFlorists.js Form
@@ -248,7 +247,7 @@ export default class LoginFlorists extends React.Component {
                 instagram={this.state.data[0].contact.instagram}
                 facebook={this.state.data[0].contact.facebook}
                 contact_method={this.state.data[0].contact_method}
-                onAfterAddListing={this.floristViewListings} />
+                onAfterAddListing={this.onAfterAddListing} />
 
         } else if (this.state.deleteFlorist == true) {
             // Display DeleteFlorists.js
