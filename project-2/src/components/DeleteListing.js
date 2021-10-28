@@ -24,8 +24,16 @@ export default class DeleteListing extends React.Component {
 
     // Confirm to delete listing
     confirmDeleteListingBtn = async () => {
-        if (this.state.floristProfile[0].login_email == this.state.deleteListingConfirmEmail){
-            await axios.delete(this.url + "/listings/" + this.state.listingIdToDelete)
+
+        if (this.state.floristProfile[0].login_email == this.state.deleteListingConfirmEmail) {
+            await axios.delete(this.url + "/listings/" + this.state.listingIdToDelete,
+                {
+                    data:
+                    {
+                        "login_email": this.state.deleteListingConfirmEmail,
+                        "florist_id": this.state.floristProfile[0]._id
+                    }
+                })
 
             alert("Listing successfully deleted.")
 
@@ -69,13 +77,13 @@ export default class DeleteListing extends React.Component {
                                     name="deleteListingConfirmEmail"
                                     value={this.state.deleteListingConfirmEmail}
                                     onChange={this.updateFormField} />
-                            </div>                        
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button"
                                 className="btn btn-danger"
                                 data-dismiss="modal"
-                                onClick={() => {this.confirmDeleteListingBtn()}}>
+                                onClick={() => { this.confirmDeleteListingBtn() }}>
                                 Confirm Delete Listing
                             </button>
                             <button type="button"
