@@ -24,7 +24,9 @@ export default class Florists extends React.Component {
 
     renderContent() {
         if (this.state.active == 'loginFlorist') {
-            return <LoginFlorists onGoToCreateProfile={this.goToCreateProfile}/>
+            return <LoginFlorists 
+                    onGoToCreateProfile={this.goToCreateProfile}
+            />
         } else if (this.state.active == 'addFlorist') {
             return <AddFlorists onAfterAddFlorist={this.afterAddFlorist}/>
         }

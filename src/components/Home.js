@@ -13,6 +13,7 @@ export default class Listing extends React.Component {
     render(){
         return <React.Fragment>
             <div className="home-background">
+                <div>A marketplace for </div>
             </div>
         </React.Fragment>
     }
