@@ -1,12 +1,14 @@
 import React from 'react'
 import axios from 'axios'
 import '../components-css/AddListing.css'
+import previewImage from '../components-css/preview-image.jpeg'
+import brokenImage from '../components-css/broken-image.jpeg'
 
 //Create form for Florists to add in new listings
 
 export default class Admin extends React.Component {
 
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us17.gitpod.io'
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
 
 
     sendData = async () => {
@@ -36,6 +38,7 @@ export default class Admin extends React.Component {
         'newListingQuantity': 0,
         'newListingOccasion': [],
         'newListingImage': "",
+        'newListingImagePreview': previewImage,
         'florist_id': this.props.florist_id,
         'florist_name': this.props.florist_name,
         'number': this.props.number,
@@ -99,6 +102,13 @@ export default class Admin extends React.Component {
                 [event.target.name]: cloned
             })
         }
+    }
+
+    updateFormFieldImage = (event) => {
+        this.setState({
+            newListingImage: event.target.value,
+            newListingImagePreview: event.target.value
+        })
     }
 
     render() {
@@ -291,11 +301,18 @@ export default class Admin extends React.Component {
                     className="form-control"
                     name="newListingImage"
                     value={this.state.newListingImage}
-                    onChange={this.updateFormField} />
+                    onChange={this.updateFormFieldImage} />
                 <div>{(!this.state.newListingImage.endsWith(".jpg") &&
                     !this.state.newListingImage.endsWith(".png") &&
                     !this.state.newListingImage.endsWith(".jpeg")) &&
                     <span className='error'>{this.state.error.newListingImage}</span>}
+                </div>
+                <div>
+                    <div>Preview Image: </div>
+
+                    <div></div>
+                    <img src={this.state.newListingImagePreview} width="300" alt="Preview Image" 
+                    onError={(event) => event.target.src = brokenImage}/>
                 </div>
             </div>
 
