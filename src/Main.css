@@ -1,13 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Roboto&display=swap');
 
-#logo{
+body{
+    padding-top: 60px;
+}
+
+#logo, .navbar-brand{
+    width: 60vw;
+    height: 60px;
     background-image: url("logo.jpg");
     background-size: contain;
     background-repeat: no-repeat;
-    width: 50vw;
+    background-position: center;
+}
+
+#navbar-expand{
+    display: none;
+}
+
+.offcanvas{
+    transform: none !important;
+    visibility: visible !important;
+}
+
+#collapsed-navbar{
+    display: block;
 }
 
 .nav-link{
     font-family: 'Roboto', sans-serif;
     color: black !important;
 }
+
+@media screen and (min-width: 576px){
+    body{
+        padding-top: 40px;
+    }
+
+    #collapsed-navbar{
+        display: none;
+    }
+    #navbar-expand{
+        display: block;
+    }
+  }
