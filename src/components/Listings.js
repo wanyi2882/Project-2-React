@@ -6,37 +6,43 @@ import Moment from 'react-moment';
 
 export default class Listing extends React.Component {
 
-    url = 'https://ywy-project2-fmp-express-app.herokuapp.com'
+    // Deployment URL
+    // url = 'https://ywy-project2-fmp-express-app.herokuapp.com'
+
+    // Testing URL
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
+
     state = {
         'data': [
 
         ],
+        'isLoaded': false,
         'display': false,
         'dropdown': false,
         'searchKeyword': "",
         'searchCategory': "",
-        'occasion': []
+        'searchOccasion': ""
     }
 
     fetchData = async () => {
         let response = await axios.get(this.url + "/listings"
-                                                + "?name=" + this.state.searchKeyword
-                                                + "&"
-                                                + "flower_type=" + this.state.searchCategory
-                                                + "&"
-                                                + "occasion=" + this.state.occasion)
-        
-        //Sort by descending date (Default)                                         
+            + "?description=" + this.state.searchKeyword
+            + "&"
+            + "flower_type=" + this.state.searchCategory
+            + "&"
+            + "occasion=" + this.state.searchOccasion)
+
+        // Sort by descending date (Default)                                         
         let array = response.data
-        array.sort(function(a, b) {
-            if(a.date_listed < b.date_listed) return 1;
-            if(a.date_listed > b.date_listed) return -1;
+        array.sort(function (a, b) {
+            if (a.date_listed < b.date_listed) return 1;
+            if (a.date_listed > b.date_listed) return -1;
             return 0;
         });
 
         this.setState({
             'data': array,
-            'dropdown': false
+            'isLoaded': true
         })
     }
 
@@ -91,6 +97,7 @@ export default class Listing extends React.Component {
         }
     }
 
+    // Dropdown toggle display
     toggle = () => {
         if (this.state.dropdown == false) {
             this.setState({
@@ -103,12 +110,14 @@ export default class Listing extends React.Component {
         }
     }
 
+    // Update form field 2 way binding
     updateFormField = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
 
+    // Update form fields for checkboxes 2 way binding
     updateCategoryCheckboxes = (event) => {
         // check if the value that the user has clicked already exists
         // 1. if exists, then the user is UNCHECKING the box
@@ -132,11 +141,13 @@ export default class Listing extends React.Component {
         }
     }
 
+    // Search Dropdown when clicked, this.state.dropdown is true
     showSearch() {
         if (this.state.dropdown) {
             return <React.Fragment>
                 <div id="searchbox">
                     <h3>Search</h3>
+                    {/* Keyword Search */}
                     <div>
                         <label className="form-label">Keyword Search</label>
                         <input type="text"
@@ -145,6 +156,8 @@ export default class Listing extends React.Component {
                             value={this.state.searchKeyword}
                             onChange={this.updateFormField} />
                     </div>
+
+                    {/* Search by flower type (Checkboxes) */}
                     <div>
                         <div><label className="form-label">Flower Categories: </label></div>
                         <div className="form-check-inline">
@@ -214,7 +227,67 @@ export default class Listing extends React.Component {
                             </label>
                         </div>
                     </div>
-                    <button className="btn btn-danger" onClick={() => this.fetchData()}>Search</button>
+
+                    {/* Search by occasion (Checkboxes) */}
+                    <div>
+                        <div><label className="form-label">Occasion: </label></div>
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="anniversary"
+                                name="searchOccasion"
+                                checked={this.state.searchOccasion.includes('anniversary')}
+                                onChange={this.updateCategoryCheckboxes} />
+                            <label className="form-check-label" for="category-anniversary">
+                                Anniversary
+                            </label>
+                        </div>
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="birthday"
+                                name="searchOccasion"
+                                checked={this.state.searchOccasion.includes('birthday')}
+                                onChange={this.updateCategoryCheckboxes} />
+                            <label className="form-check-label" for="category-birthday">
+                                Birthday
+                            </label>
+                        </div>
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="date"
+                                name="searchOccasion"
+                                checked={this.state.searchOccasion.includes('date')}
+                                onChange={this.updateCategoryCheckboxes} />
+                            <label className="form-check-label" for="category-date">
+                                Date
+                            </label>
+                        </div>
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="graduation"
+                                name="searchOccasion"
+                                checked={this.state.searchOccasion.includes('graduation')}
+                                onChange={this.updateCategoryCheckboxes} />
+                            <label className="form-check-label" for="category-graduation">
+                                Graduation
+                            </label>
+                        </div>
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="wedding"
+                                name="searchOccasion"
+                                checked={this.state.searchOccasion.includes('wedding')}
+                                onChange={this.updateCategoryCheckboxes} />
+                            <label className="form-check-label" for="category-wedding">
+                                Wedding
+                            </label>
+                        </div>
+                    </div>
+                    <button className="btn btn-danger" onClick={() => this.searchButton()}>Search</button>
                 </div>
             </React.Fragment>
 
@@ -224,7 +297,44 @@ export default class Listing extends React.Component {
         }
     }
 
+    // On click of search button in the search dropdown
+    searchButton = () => {
+        this.fetchData()
+
+        // On click of search button, fetch data from server and send information
+        // to this.state.data. this.state.dropdown (search) is false.
+        this.setState({
+            'dropdown': false
+        })
+    }
+
+    // Re-render and get all listings
+    refreshViewAllListings = async () => {
+        let response = await axios.get(this.url + "/listings")
+
+        // Sort by descending date (Default)                                         
+        let array = response.data
+        array.sort(function (a, b) {
+            if (a.date_listed < b.date_listed) return 1;
+            if (a.date_listed > b.date_listed) return -1;
+            return 0;
+        });
+
+        // On click of search button, fetch data from server and send information
+        // to this.state.data. this.state.dropdown (search) is false.
+        this.setState({
+            'data': array,
+            'searchKeyword': "",
+            'searchCategory': "",
+            'searchOccasion': ""
+        })
+
+    }
+
     render() {
+        if (!this.state.isLoaded) {
+            return null
+        }
         return <React.Fragment>
             <ul className="nav nav-tabs justify-content-center">
                 <li className="nav-item dropdown">
@@ -235,32 +345,60 @@ export default class Listing extends React.Component {
             </ul>
             {this.showSearch()}
 
-            <div className="listing-background">
-                <div className="container">
-                    <div className="row">
-                        {this.state.data.map(listings =>
-                            <div className="col-sm" key={listings._id}>
-                                <div className="card card-listing"
-                                    role="button"
-                                    key={listings._id}
-                                    onClick={() => {
-                                        this.setState({
-                                            'display': true
-                                        })
-                                    }}>
-                                    <img className="card-img-top card-image"
-                                        src={listings.image} />
-                                    <div className="card-body">
-                                        <h3 className="card-title">{listings.name}</h3>
-                                        <h4>updated <Moment fromNow>{listings.date_listed}</Moment></h4>
-                                        <h4>by <span>{listings.florist.florist_name}</span></h4>
-                                        <h5>${listings.price}</h5>
+            <div id="listing-background">
+                {!this.state.data.length == 0 ?
+                    <div className="container">
+                        <div className="row">
+                            {this.state.data.map(listings =>
+                                <div className="col-sm" key={listings._id}>
+                                    <div className="card card-listing"
+                                        role="button"
+                                        key={listings._id}
+                                        onClick={() => {
+                                            this.setState({
+                                                'display': true
+                                            })
+                                        }}>
+                                        <img className="card-img-top card-image"
+                                            src={listings.image} />
+                                        <div className="card-body">
+                                            <h3 className="card-title">{listings.name}</h3>
+                                            <h4>updated <Moment fromNow>{listings.date_listed}</Moment></h4>
+                                            <h4>by <span>{listings.florist.florist_name}</span></h4>
+                                            <h5>${listings.price}</h5>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
-                </div>
+                    :
+                    <div id="emptySearchResultsDiv">
+                        <span id="emptySearchResultsText">
+                            No results available for
+                            {this.state.searchKeyword == "" ?
+                                null :
+                                <span> Keyword: {this.state.searchKeyword} </span>}
+                            <br />
+
+                            {this.state.searchCategory.length == 0 ?
+                                null :
+                                <span> Flower Type: {this.state.searchCategory.join(", ")} </span>}
+                            <br />
+
+                            {this.state.searchOccasion.length == 0 ?
+                                null :
+                                <span> Occasion: {this.state.searchOccasion.join(", ")} </span>}
+                            <br />
+
+                            <span> Why not &nbsp;
+                                <span id="emptySearchResultsAlternative"
+                                    role="button"
+                                    onClick={() => this.refreshViewAllListings()}>
+                                    view all available listings </span> ?
+                            </span>
+                        </span>
+                    </div>}
                 {this.renderModal()}
             </div>
         </React.Fragment>

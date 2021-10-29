@@ -1,10 +1,21 @@
-.listing-background{
+#listing-background{
     background-image: url("listing-background.jpg");
     background-repeat:no-repeat;
     background-attachment: fixed;
     background-position: center;
     background-size:cover;
     z-index: -1;
+}
+
+#emptySearchResultsDiv{
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+
+}
+
+#emptySearchResultsAlternative{
+    color: red;
 }
 
 .card-listing{
