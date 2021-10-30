@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Libre+Baskerville:ital@1&family=Roboto&display=swap');
+
 #listing-background{
     background-image: url("listing-background.jpg");
     background-repeat:no-repeat;
@@ -5,12 +7,12 @@
     background-position: center;
     background-size:cover;
     z-index: -1;
+    width: 100vw;
 }
 
 #emptySearchResultsDiv{
-    height: 100vh;
-    width: 100vw;
     text-align: center;
+    height: 100vh;
 
 }
 
@@ -19,9 +21,9 @@
 }
 
 .card-listing{
+    font-family: 'Lato', sans-serif;
     margin: 10px;
-    width: 18rem;
-    height: 90vh;
+    width: 17rem;
 }
 
 .card-listing:hover{
@@ -31,6 +33,20 @@
 .card-image{
     padding: 20px;
     height: 320px;
+}
+
+.card-body{
+    padding: 0px 16px 16px 16px !important;
+}
+
+.card-title{
+    font-weight: bold;
+}
+
+#modal-image{
+    border-radius: 30px;
+    width: 100%;
+    height: auto;
 }
 
 #searchbox{
