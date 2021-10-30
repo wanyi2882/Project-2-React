@@ -21,8 +21,12 @@ export default class FloristStop extends React.Component {
         })
     }
 
-    afterAddListing = () => {
+    goToListings = () => {
         this.setActive('listings')
+    }
+
+    goToFlorists = () => {
+        this.setActive('florists')
     }
 
     // Toggle Collapsed Nav Hamburger
@@ -41,13 +45,16 @@ export default class FloristStop extends React.Component {
     // Render different components on Click
     renderContent() {
         if (this.state.active == 'home') {
-            return <Home />
+            return <Home 
+                    goToListings={this.goToListings}
+                    goToFlorists={this.goToFlorists} />
         } else if (this.state.active == 'listings') {
             return <Listings />
         } else if (this.state.active == 'florists') {
             return <Florists />
         } else if (this.state.active == 'admin') {
-            return <Admin onAfterAddListing={this.afterAddListing} />
+            return <Admin 
+                    onAfterAddListing={this.goToListings} />
         }
     }
 
