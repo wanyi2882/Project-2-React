@@ -2,7 +2,6 @@ import React from 'react'
 import Home from './components/Home'
 import Florists from './components/Florists'
 import Listings from './components/Listings'
-import Admin from './components/AddListing'
 import './Main.css'
 
 
@@ -52,10 +51,7 @@ export default class FloristStop extends React.Component {
             return <Listings />
         } else if (this.state.active == 'florists') {
             return <Florists />
-        } else if (this.state.active == 'admin') {
-            return <Admin 
-                    onAfterAddListing={this.goToListings} />
-        }
+        } 
     }
 
     render() {
@@ -74,15 +70,11 @@ export default class FloristStop extends React.Component {
                         </li>
                         <li className="nav-item">
                             <button className="nav-link"
-                                onClick={() => this.setActive('admin')}>Admin</button>
-                        </li>
-                        <li className="nav-item">
-                            <button className="nav-link"
                                 onClick={() => this.setActive('listings')}>Listings</button>
                         </li>
                         <li className="nav-item">
                             <button className="nav-link"
-                                onClick={() => this.setActive('florists')}>Florists</button>
+                                onClick={() => this.setActive('florists')}>Florists Login</button>
                         </li>
                     </ul>
                 </div>
@@ -118,23 +110,17 @@ export default class FloristStop extends React.Component {
                                         </li>
                                         <li className="nav-item">
                                             <div className="nav-link"
-                                                onClick={() => this.setActive('admin')}>Admin</div>
-                                        </li>
-                                        <li className="nav-item">
-                                            <div className="nav-link"
                                                 onClick={() => this.setActive('listings')}>Listings</div>
                                         </li>
                                         <li className="nav-item">
                                             <div className="nav-link"
-                                                onClick={() => this.setActive('florists')}>Florists</div>
+                                                onClick={() => this.setActive('florists')}>Florists Login</div>
                                         </li>
-
                                     </ul>
                                 </div>
                             </div>
                             : null
                         }
-
                     </div>
                 </nav>
 
