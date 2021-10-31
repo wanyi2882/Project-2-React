@@ -12,10 +12,10 @@ import { HiChevronDoubleUp } from "react-icons/hi";
 export default class Listing extends React.Component {
 
     // Deployment URL
-    //url = 'https://ywy-project2-fmp-express-app.herokuapp.com'
+    url = 'https://ywy-project2-fmp-express-app.herokuapp.com'
 
     // Testing URL
-    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
+    //url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
 
     state = {
         'data': [
