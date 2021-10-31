@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import '../components-css/EditFlorists.css'
 
 export default class EditFlorists extends React.Component {
 
@@ -33,11 +34,14 @@ export default class EditFlorists extends React.Component {
             })
     }
 
+    // Update Form Field
     updateFormField = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
+
+    // Update Checkboxes Form Field
     updateCategoryCheckboxes = (event) => {
         // check if the value that the user has clicked already exists
         // 1. if exists, then the user is UNCHECKING the box
@@ -94,6 +98,7 @@ export default class EditFlorists extends React.Component {
         }
     }
 
+    // Browser Validation before sending edit to server
     confirmEditFlorist = () => {
         let error = ""
         if (this.state.modifiedUsername.length < 8) {
@@ -143,110 +148,112 @@ export default class EditFlorists extends React.Component {
 
     render() {
         return <React.Fragment>
-            <h1>Edit Profile</h1>
+            <div className="container">
+                <h1>Edit Profile</h1>
 
-            <div>
-                <h3>Login Information</h3>
                 <div>
-                    <label className="form-label">User Name:</label>
-                    <input type="text"
-                        className="form-control"
-                        name="modifiedUsername"
-                        value={this.state.modifiedUsername}
-                        onChange={this.updateFormField} />
+                    <h3>Login Information</h3>
+                    <div className="edit-florists-div">
+                        <label className="form-label edit-florists-label">User Name:</label>
+                        <input type="text"
+                            className="form-control"
+                            name="modifiedUsername"
+                            value={this.state.modifiedUsername}
+                            onChange={this.updateFormField} />
+                    </div>
+                    <div className="edit-florists-div">
+                        <label className="form-label edit-florists-label">Login Email:</label>
+                        <input type="text"
+                            className="form-control"
+                            name="modifiedLoginEmail"
+                            value={this.state.modifiedLoginEmail}
+                            onChange={this.updateFormField} />
+                    </div>
                 </div>
+
                 <div>
-                    <label className="form-label">Login Email:</label>
-                    <input type="text"
-                        className="form-control"
-                        name="modifiedLoginEmail"
-                        value={this.state.modifiedLoginEmail}
-                        onChange={this.updateFormField} />
+                    <h3>More About You (Profile to Public)</h3>
+                    <div className="edit-florists-div">
+                        <label className="form-label edit-florists-label">Name of Florist:</label>
+                        <input type="text"
+                            className="form-control"
+                            name="modifiedFloristName"
+                            value={this.state.modifiedFloristName}
+                            onChange={this.updateFormField} />
+                    </div>
+                    <div className="edit-florists-div">
+                        <div><label className="form-label edit-florists-label">Ways you want to be contacted thru: </label></div>
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="whatsapp"
+                                name="modifiedContactCategory"
+                                checked={this.state.modifiedContactCategory.includes('whatsapp')}
+                                onChange={this.updateCategoryCheckboxes}
+                                onClick={this.checkContactMethod} />
+                            <label className="form-check-label" for="category-whatsapp">
+                                Whatsapp
+                            </label>
+                        </div>
+
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="facebook"
+                                name="modifiedContactCategory"
+                                checked={this.state.modifiedContactCategory.includes('facebook')}
+                                onChange={this.updateCategoryCheckboxes}
+                                onClick={this.checkContactMethod} />
+                            <label className="form-check-label" for="category-facebook">
+                                Facebook
+                            </label>
+                        </div>
+
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="instagram"
+                                name="modifiedContactCategory"
+                                checked={this.state.modifiedContactCategory.includes('instagram')}
+                                onChange={this.updateCategoryCheckboxes} />
+                            <label className="form-check-label" for="category-instagram">
+                                Instagram
+                            </label>
+                        </div>
+                    </div>
+
+                    <div className="edit-florists-div">
+                        <label className="form-label edit-florists-label">Contact Number (Please fill this field if you have ticked 'Whatsapp' above):</label>
+                        <input disabled={!this.state.modifiedContactCategory.includes('whatsapp')}
+                            type="text"
+                            className="form-control"
+                            name="modifiedContactNumber"
+                            value={this.state.modifiedContactNumber}
+                            onChange={this.updateFormField} />
+                    </div>
+                    <div className="edit-florists-div">
+                        <label className="form-label edit-florists-label">Instagram URL (Please fill this field if you have ticked 'Instagram' above):</label>
+                        <input disabled={!this.state.modifiedContactCategory.includes('instagram')}
+                            type="text"
+                            className="form-control"
+                            name="modifiedInstagramURL"
+                            value={this.state.modifiedInstagramURL}
+                            onChange={this.updateFormField} />
+                    </div>
+                    <div className="edit-florists-div">
+                        <label className="form-label edit-florists-label">Facebook URL (Please fill this field if you have ticked 'Facebook' above):</label>
+                        <input disabled={!this.state.modifiedContactCategory.includes('facebook')}
+                            type="text"
+                            className="form-control"
+                            name="modifiedFacebookURL"
+                            value={this.state.modifiedFacebookURL}
+                            onChange={this.updateFormField} />
+                    </div>
                 </div>
+
+                <button className="btn btn-primary mb-3"
+                    onClick={() => this.confirmEditFlorist()}>Confirm Edit Profile</button>
             </div>
-
-            <div>
-                <h3>More About You (Profile to Public)</h3>
-                <div>
-                    <label className="form-label">Name of Florist:</label>
-                    <input type="text"
-                        className="form-control"
-                        name="modifiedFloristName"
-                        value={this.state.modifiedFloristName}
-                        onChange={this.updateFormField} />
-                </div>
-                <div>
-                    <div><label className="form-label">Ways you want to be contacted thru: </label></div>
-                    <div className="form-check-inline">
-                        <input className="form-check-input"
-                            type="checkbox"
-                            value="whatsapp"
-                            name="modifiedContactCategory"
-                            checked={this.state.modifiedContactCategory.includes('whatsapp')}
-                            onChange={this.updateCategoryCheckboxes}
-                            onClick={this.checkContactMethod} />
-                        <label className="form-check-label" for="category-whatsapp">
-                            Whatsapp
-                        </label>
-                    </div>
-
-                    <div className="form-check-inline">
-                        <input className="form-check-input"
-                            type="checkbox"
-                            value="facebook"
-                            name="modifiedContactCategory"
-                            checked={this.state.modifiedContactCategory.includes('facebook')}
-                            onChange={this.updateCategoryCheckboxes}
-                            onClick={this.checkContactMethod} />
-                        <label className="form-check-label" for="category-facebook">
-                            Facebook
-                        </label>
-                    </div>
-
-                    <div className="form-check-inline">
-                        <input className="form-check-input"
-                            type="checkbox"
-                            value="instagram"
-                            name="modifiedContactCategory"
-                            checked={this.state.modifiedContactCategory.includes('instagram')}
-                            onChange={this.updateCategoryCheckboxes} />
-                        <label className="form-check-label" for="category-instagram">
-                            Instagram
-                        </label>
-                    </div>
-                </div>
-
-                <div>
-                    <label className="form-label">Contact Number (Please fill this field if you have ticked 'Whatsapp' above):</label>
-                    <input disabled={!this.state.modifiedContactCategory.includes('whatsapp')}
-                        type="text"
-                        className="form-control"
-                        name="modifiedContactNumber"
-                        value={this.state.modifiedContactNumber}
-                        onChange={this.updateFormField} />
-                </div>
-                <div>
-                    <label className="form-label">Instagram URL (Please fill this field if you have ticked 'Instagram' above):</label>
-                    <input disabled={!this.state.modifiedContactCategory.includes('instagram')}
-                        type="text"
-                        className="form-control"
-                        name="modifiedInstagramURL"
-                        value={this.state.modifiedInstagramURL}
-                        onChange={this.updateFormField} />
-                </div>
-                <div>
-                    <label className="form-label">Facebook URL (Please fill this field if you have ticked 'Facebook' above):</label>
-                    <input disabled={!this.state.modifiedContactCategory.includes('facebook')}
-                        type="text"
-                        className="form-control"
-                        name="modifiedFacebookURL"
-                        value={this.state.modifiedFacebookURL}
-                        onChange={this.updateFormField} />
-                </div>
-            </div>
-
-            <button className="btn btn-primary"
-                    onClick={()=>this.confirmEditFlorist()}>Confirm Edit Profile</button>
         </React.Fragment>
     }
 }
