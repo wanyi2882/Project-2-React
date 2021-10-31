@@ -12,10 +12,10 @@ import { HiChevronDoubleUp } from "react-icons/hi";
 export default class Listing extends React.Component {
 
     // Deployment URL
-    url = 'https://ywy-project2-fmp-express-app.herokuapp.com'
+    //url = 'https://ywy-project2-fmp-express-app.herokuapp.com'
 
     // Testing URL
-    //url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
+    url = 'https://3000-tan-nightingale-xhc8uhmi.ws-us18.gitpod.io'
 
     state = {
         'data': [
@@ -27,6 +27,8 @@ export default class Listing extends React.Component {
         'searchKeyword': "",
         'searchCategory': "",
         'searchOccasion': "",
+        'searchMinPrice': "",
+        'searchMaxPrice': "",
         'displayAccordion': false,
         'modalListingDetails': {},
         'whatsappURL': "https://wa.me/65"
@@ -38,7 +40,11 @@ export default class Listing extends React.Component {
             + "&"
             + "flower_type=" + this.state.searchCategory
             + "&"
-            + "occasion=" + this.state.searchOccasion)
+            + "occasion=" + this.state.searchOccasion
+            + "&"
+            + "price_greater=" + this.state.searchMinPrice
+            + "&"
+            + "price_lesser=" +this.state.searchMaxPrice)
 
         // Sort by descending date (Default)                                         
         let array = response.data
@@ -127,12 +133,12 @@ export default class Listing extends React.Component {
                                             <div>
                                                 <div role="button"
                                                     onClick={() => this.openAccordion()}>
-                                                        {this.state.displayAccordion ? 
+                                                    {this.state.displayAccordion ?
                                                         <span>Florist Contact Information <HiChevronDoubleUp /></span> :
                                                         <span>Florist Contact Information <HiChevronDoubleDown /></span>}
                                                 </div>
 
-                                                {this.state.displayAccordion ?                                                
+                                                {this.state.displayAccordion ?
                                                     <div>
                                                         <hr />
                                                         {this.state.modalListingDetails.florist.contact_method.includes("whatsapp") ?
@@ -151,7 +157,7 @@ export default class Listing extends React.Component {
                                                         {this.state.modalListingDetails.florist.contact_method.includes("facebook") ?
                                                             <div>
                                                                 <a href={this.state.modalListingDetails.florist.contact.facebook}>
-                                                                <FaFacebookSquare /> Facebook</a>
+                                                                    <FaFacebookSquare /> Facebook</a>
                                                             </div> : null}
                                                     </div>
                                                     :
@@ -365,6 +371,22 @@ export default class Listing extends React.Component {
                                 Wedding
                             </label>
                         </div>
+                    </div>
+                    {/* Search by Price */}
+                    <div className="search-div">
+                        <div><label className="form-label search-label">Price</label></div>
+                        <label className="form-label">Min</label>
+                        <input type="text"
+                            className="form-control"
+                            name="searchMinPrice"
+                            value={this.state.searchMinPrice}
+                            onChange={this.updateFormField} />
+                        <label className="form-label">Max</label>
+                        <input type="text"
+                            className="form-control"
+                            name="searchMaxPrice"
+                            value={this.state.searchMaxPrice}
+                            onChange={this.updateFormField} />
                     </div>
                     <button id="search-btn" className="btn" onClick={() => this.searchButton()}>Search</button>
                 </div>
