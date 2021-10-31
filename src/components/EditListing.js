@@ -29,6 +29,18 @@ export default class EditListing extends React.Component {
                 "instagram": this.state.listingToBeEdited.florist.contact.instagram,
                 "facebook": this.state.listingToBeEdited.florist.contact.facebook
             })
+
+            this.setState({
+                'listingToBeEdited': "",
+                'listingIdToBeEdited': "",
+                'listingNameToBeEdited': "",
+                'listingDescriptionToBeEdited': "",
+                'listingFlowerTypeToBeEdited': "",
+                'listingPriceToBeEdited': "",
+                'listingOccasionToBeEdited': "",
+                'listingQuantityToBeEdited': "",
+                'listingImageToBeEdited': ""
+            })
     }
 
     state = {
