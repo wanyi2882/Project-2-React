@@ -114,7 +114,7 @@ export default class EditListing extends React.Component {
             parseFloat(this.state.listingPriceToBeEdited) &&
             !parseInt(this.state.listingQuantityToBeEdited) <= 0 &&
             parseInt(this.state.listingQuantityToBeEdited) &&
-            !this.state.listingOccasionToBeEdited < 1 &&
+            !this.state.listingOccasionToBeEdited.length < 1 &&
             (this.state.listingImageToBeEdited.endsWith(".jpg") ||
                 this.state.listingImageToBeEdited.endsWith(".png") ||
                 this.state.listingImageToBeEdited.endsWith(".jpeg")) &&
