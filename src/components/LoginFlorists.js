@@ -96,29 +96,29 @@ export default class LoginFlorists extends React.Component {
             return <React.Fragment>
                 <div id="login-background">
                     <div className="container">
-                    <h3>View your profile</h3>
-                    <div>
-                        <label className="form-label">User Name:</label>
-                        <input type="text"
-                            className="form-control"
-                            name="loginUserName"
-                            value={this.state.loginUserName}
-                            onChange={this.updateFormField} />
-                    </div>
-                    <div>
-                        <label className="form-label">Login Email:</label>
-                        <input type="text"
-                            className="form-control"
-                            name="loginEmail"
-                            value={this.state.loginEmail}
-                            onChange={this.updateFormField} />
-                    </div>
-                    <div>
-                        <button className="btn btn-primary mt-3 me-2"
-                            onClick={() => this.seeProfileBtn()}>See your profile</button>
-                        <button className="btn btn-danger mt-3"
-                            onClick={() => this.createProfileBtn()}>New? Create A New Profile</button>
-                    </div>
+                        <h3>View your profile</h3>
+                        <div>
+                            <label className="form-label">User Name:</label>
+                            <input type="text"
+                                className="form-control"
+                                name="loginUserName"
+                                value={this.state.loginUserName}
+                                onChange={this.updateFormField} />
+                        </div>
+                        <div>
+                            <label className="form-label">Login Email:</label>
+                            <input type="text"
+                                className="form-control"
+                                name="loginEmail"
+                                value={this.state.loginEmail}
+                                onChange={this.updateFormField} />
+                        </div>
+                        <div>
+                            <button className="btn btn-primary mt-3 me-2"
+                                onClick={() => this.seeProfileBtn()}>See your profile</button>
+                            <button className="btn btn-danger mt-3"
+                                onClick={() => this.createProfileBtn()}>New? Create A New Profile</button>
+                        </div>
                     </div>
                 </div>
             </React.Fragment>
@@ -271,16 +271,29 @@ export default class LoginFlorists extends React.Component {
     showProfile = () => {
         if (this.state.displayProfile) {
             return <React.Fragment>
-                <div>{this.state.data.map(each =>
+                <div>
+                <div className="container">{this.state.data.map(each =>
                     <div key={each._id}>
-                        <h1>Welcome Back {each.name} !</h1>
-                        <button onClick={() => this.editForm(each)}>Edit Your Profile</button>
-                        <button onClick={() => this.addListingForm()}>Add New Listing</button>
-                        <button onClick={() => this.floristViewListings()}>View Your Listings</button>
-                        <button onClick={() => this.deleteForm(each)}>Delete Your Profile</button>
+                        <h1>Welcome Back <span>{each.name}</span> !</h1>
+                        <ul className="nav nav-tabs">
+                            <li className="nav-item">
+                                <button className="nav-link"
+                                    onClick={() => this.editForm(each)}>Edit Profile</button>
+                            </li>
+                            <li className="nav-item">
+                                <button className="nav-link" onClick={() => this.addListingForm()}>Add Listing</button>
+                            </li>
+                            <li className="nav-item">
+                                <button className="nav-link" onClick={() => this.floristViewListings()}>View Listings</button>
+                            </li>
+                            <li className="nav-item">
+                                <button className="nav-link" onClick={() => this.deleteForm(each)}>Delete Profile</button>
+                            </li>
+                        </ul>
                     </div>)}
                 </div>
                 {this.displayForms()}
+                </div>
             </React.Fragment>
         }
     }
