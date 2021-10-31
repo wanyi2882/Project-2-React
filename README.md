@@ -206,6 +206,10 @@ Font 'Libre Baskerville', serif applied only to header for home page.
 |02E.         |                       | Search by Occasion "birthday" and "date"| Displays all listings with occasion "birthday" or "date"|
 |02F.         |                       | Search by keyword "delivery" and Flower Categories "roses"| Displays all listings with description including "delivery" and flower type "roses"|
 |02G.         |                       | Search by Flower Categories "gerbera" and occasion "wedding"| Results does not exists. Will display results invalid on page and suggest user to view all listings|
+|02H.         |                       | Filter by price greater than 50| Display listings with price greater than 50|
+|02I.         |                       | Filter by price less than 50| Display listings with price less than 50|
+|02J.         |                       | Filter by  greater than 50 and less than 100| Display listings with price greater than 50 but less than 100|
+
 
 **6B. For B2B User: Freelance / Homebase Florists**
 
