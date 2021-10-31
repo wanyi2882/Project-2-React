@@ -2,6 +2,11 @@ import React from 'react'
 import axios from 'axios'
 import "../components-css/Listings.css"
 import Moment from 'react-moment';
+import { FaWhatsapp } from 'react-icons/fa'
+import { FaFacebookSquare } from 'react-icons/fa'
+import { FaInstagram } from 'react-icons/fa'
+import { HiChevronDoubleDown } from "react-icons/hi";
+import { HiChevronDoubleUp } from "react-icons/hi";
 
 
 export default class Listing extends React.Component {
@@ -21,7 +26,10 @@ export default class Listing extends React.Component {
         'dropdown': false,
         'searchKeyword': "",
         'searchCategory': "",
-        'searchOccasion': ""
+        'searchOccasion': "",
+        'displayAccordion': false,
+        'modalListingDetails': {},
+        'whatsappURL': "https://wa.me/65"
     }
 
     fetchData = async () => {
@@ -50,12 +58,32 @@ export default class Listing extends React.Component {
         this.fetchData()
     }
 
+    // Hide Modal Box and empty state 'modalListingDetails'
     hideModalBox = () => {
         this.setState({
-            'display': false
+            'display': false,
+            'displayAccordion': false,
+            'modalListingDetails': {},
+            'whatsappURL': "https://wa.me/65"
         })
     }
 
+    // Toggle accordion
+    openAccordion = () => {
+        this.state.displayAccordion ?
+
+            this.setState({
+                'displayAccordion': false,
+                'whatsappURL': "https://wa.me/65"
+            })
+            :
+            this.setState({
+                'displayAccordion': true,
+                'whatsappURL': "https://wa.me/65" + this.state.modalListingDetails.florist.contact.number
+            })
+    }
+
+    // Render Modal Box when this.state.display is true
     renderModal() {
         if (this.state.display) {
             return <React.Fragment>
@@ -69,7 +97,8 @@ export default class Listing extends React.Component {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title"></h5>
+                                <h5 className="modal-title">{this.state.modalListingDetails.name} < br />
+                                    by {this.state.modalListingDetails.florist.florist_name}</h5>
                                 <button type="button"
                                     className="close"
                                     data-dismiss="modal"
@@ -79,7 +108,58 @@ export default class Listing extends React.Component {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <p>Modal body text goes here.</p>
+                                <div className="container">
+                                    <div className="row">
+                                        <div className="col-12 col-sm-5">
+                                            <img src={this.state.modalListingDetails.image}
+                                                id="modal-image" />
+                                        </div>
+                                        <div className="col-12 col-sm-7">
+                                            <hr />
+                                            <div>{this.state.modalListingDetails.description}</div>
+                                            <hr />
+                                            <div>Price: ${this.state.modalListingDetails.price}</div>
+                                            <div>Available Quantity: {this.state.modalListingDetails.quantity}</div>
+                                            <hr />
+                                            <div> Occasion(s): {this.state.modalListingDetails.occasion.join(", ")} </div>
+                                            <div> Flower Type(s): {this.state.modalListingDetails.flower_type.join(", ")} </div>
+                                            <hr />
+                                            <div>
+                                                <div role="button"
+                                                    onClick={() => this.openAccordion()}>
+                                                        {this.state.displayAccordion ? 
+                                                        <span>Florist Contact Information <HiChevronDoubleUp /></span> :
+                                                        <span>Florist Contact Information <HiChevronDoubleDown /></span>}
+                                                </div>
+
+                                                {this.state.displayAccordion ?                                                
+                                                    <div>
+                                                        <hr />
+                                                        {this.state.modalListingDetails.florist.contact_method.includes("whatsapp") ?
+                                                            <div>
+                                                                <a href={this.state.whatsappURL}>
+                                                                    <FaWhatsapp /> {this.state.modalListingDetails.florist.contact.number}
+                                                                </a>
+                                                            </div> : null}
+
+                                                        {this.state.modalListingDetails.florist.contact_method.includes("instagram") ?
+                                                            <div>
+                                                                <a href={this.state.modalListingDetails.florist.contact.instagram}>
+                                                                    <FaInstagram /> Instagram</a>
+                                                            </div> : null}
+
+                                                        {this.state.modalListingDetails.florist.contact_method.includes("facebook") ?
+                                                            <div>
+                                                                <a href={this.state.modalListingDetails.florist.contact.facebook}>
+                                                                <FaFacebookSquare /> Facebook</a>
+                                                            </div> : null}
+                                                    </div>
+                                                    :
+                                                    null}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div className="modal-footer">
                                 <button type="button"
@@ -145,11 +225,10 @@ export default class Listing extends React.Component {
     showSearch() {
         if (this.state.dropdown) {
             return <React.Fragment>
-                <div id="searchbox">
-                    <h3>Search</h3>
+                <div id="searchbox" className="container">
                     {/* Keyword Search */}
-                    <div>
-                        <label className="form-label">Keyword Search</label>
+                    <div className="search-div">
+                        <label className="form-label search-label">Keyword Search</label>
                         <input type="text"
                             className="form-control"
                             name="searchKeyword"
@@ -158,8 +237,8 @@ export default class Listing extends React.Component {
                     </div>
 
                     {/* Search by flower type (Checkboxes) */}
-                    <div>
-                        <div><label className="form-label">Flower Categories: </label></div>
+                    <div className="search-div">
+                        <div><label className="form-label search-label">Flower Categories</label></div>
                         <div className="form-check-inline">
                             <input className="form-check-input"
                                 type="checkbox"
@@ -229,8 +308,8 @@ export default class Listing extends React.Component {
                     </div>
 
                     {/* Search by occasion (Checkboxes) */}
-                    <div>
-                        <div><label className="form-label">Occasion: </label></div>
+                    <div className="search-div">
+                        <div><label className="form-label search-label">Occasion</label></div>
                         <div className="form-check-inline">
                             <input className="form-check-input"
                                 type="checkbox"
@@ -287,7 +366,7 @@ export default class Listing extends React.Component {
                             </label>
                         </div>
                     </div>
-                    <button className="btn btn-danger" onClick={() => this.searchButton()}>Search</button>
+                    <button id="search-btn" className="btn" onClick={() => this.searchButton()}>Search</button>
                 </div>
             </React.Fragment>
 
@@ -331,6 +410,7 @@ export default class Listing extends React.Component {
 
     }
 
+    // Render All listings
     render() {
         if (!this.state.isLoaded) {
             return null
@@ -347,25 +427,27 @@ export default class Listing extends React.Component {
 
             <div id="listing-background">
                 {!this.state.data.length == 0 ?
+                    // Data is available to display
                     <div className="container">
                         <div className="row">
                             {this.state.data.map(listings =>
-                                <div className="col-sm" key={listings._id}>
+                                <div className="col-12 col-sm-6 col-lg-4" key={listings._id}>
                                     <div className="card card-listing"
                                         role="button"
                                         key={listings._id}
                                         onClick={() => {
                                             this.setState({
-                                                'display': true
+                                                'display': true,
+                                                'modalListingDetails': listings
                                             })
                                         }}>
                                         <img className="card-img-top card-image"
                                             src={listings.image} />
                                         <div className="card-body">
-                                            <h3 className="card-title">{listings.name}</h3>
-                                            <h4>updated <Moment fromNow>{listings.date_listed}</Moment></h4>
-                                            <h4>by <span>{listings.florist.florist_name}</span></h4>
-                                            <h5>${listings.price}</h5>
+                                            <h6 className="card-title">{listings.name}</h6>
+                                            <span>updated <Moment fromNow>{listings.date_listed}</Moment></span> <br />
+                                            <span>by <span>{listings.florist.florist_name}</span></span> <br />
+                                            <span>${listings.price}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -373,6 +455,7 @@ export default class Listing extends React.Component {
                         </div>
                     </div>
                     :
+                    // No data to display
                     <div id="emptySearchResultsDiv">
                         <span id="emptySearchResultsText">
                             No results available for
