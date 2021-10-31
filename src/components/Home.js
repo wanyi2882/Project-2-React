@@ -22,8 +22,12 @@ export default class Listing extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div id="introduction" className="col">
-                            <div>Floral Market Place</div>
-                            <div>“Where flowers bloom, so does hope.” – Lady Bird Johnson</div>
+                            <div>
+                                <span id="introduction-span-one">Floral Market Place</span>
+                            </div>
+                            <div>
+                                <span id="introduction-span-two">“Where flowers bloom, so does hope.” – Lady Bird Johnson</span>
+                            </div>
                         </div>
                     </div>
 

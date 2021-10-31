@@ -11,12 +11,18 @@
 
 #introduction{
     font-family: 'Libre Baskerville', serif;
-    margin: 20px 10px 100px 10px;
-    height: 30vh;
-    /* border: 2px solid black; */
-    /* border-radius: 50px; */
+    margin: 130px 10px 0px 10px;
+    height: 25vh;
     text-align: center;
-    /* background-color: rgba(247, 232, 226, 0.822); */
+}
+
+#introduction-span-one{
+    font-size: 1.6em;
+    background-color: white;
+}
+
+#introduction-span-two{
+    background-color: white;
 }
 
 #introduction-two{
@@ -28,18 +34,77 @@
 #viewAllListings{
     font-size: 1em;
     margin-bottom: 20px;
-    height: 10vh;
+    height: 15vh;
     border: 2px solid black;
     border-radius: 50px;
     text-align: center;
-    background-color: rgba(247, 232, 226, 0.822);    
+    background-color: #fa9600e5;
+    padding: 10px;    
 }
 
 #floristPage{
     font-size: 1em;
-    height: 10vh;
+    height: 15vh;
     border: 2px solid black;
     border-radius: 50px;
     text-align: center;
-    background-color: rgba(247, 232, 226, 0.822);     
+    color: white;
+    background-color: #eb6324ef;
+    padding: 15px;
+}
+
+@media screen and (min-width: 576px){
+
+    #viewAllListings{
+        height: 30vh;
+        font-size: 1.2em;
+        padding: 20px;
+    }
+    
+    #floristPage{
+        height: 30vh;
+        font-size: 1.2em;
+        padding: 20px;
+    }
+}
+
+@media screen and (min-width: 768px){
+    #viewAllListings{
+        height: 20vh;
+    }
+    
+    #floristPage{
+        height: 20vh;
+    }
+}
+@media screen and (min-width: 1024px){
+    #introduction{
+        height: 35vh;
+    }
+
+    #introduction-span-one{
+        font-size: 2em;
+    }
+    
+    #introduction-span-two{
+        font-size: 1.3em;
+    }
+
+    #viewAllListings{
+        height: 15vh;
+    }
+    
+    #floristPage{
+        height: 15vh;
+    }
+}
+
+@media screen and (min-width: 1440px){
+    #viewAllListings{
+        font-size: 1.1em;
+    }
+    
+    #floristPage{
+        font-size: 1.1em;
+    }
 }
