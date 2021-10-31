@@ -66,7 +66,7 @@ export default class Admin extends React.Component {
             !this.state.newListingCategory.length < 1 &&
             !parseFloat(this.state.newListingPrice) <= 0 &&
             !parseInt(this.state.newListingQuantity) <= 0 &&
-            !this.state.newListingOccasion < 1 &&
+            !this.state.newListingOccasion.length < 1 &&
             (this.state.newListingImage.endsWith(".jpg") ||
                 this.state.newListingImage.endsWith(".png") ||
                 this.state.newListingImage.endsWith(".jpeg")) &&
