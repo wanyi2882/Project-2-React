@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import '../components-css/AddFlorists.css'
 
 export default class AddFlorists extends React.Component {
 
@@ -32,13 +33,14 @@ export default class AddFlorists extends React.Component {
             })
     }
 
-
+    // Update Form Fields
     updateFormField = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
 
+    // Update Checkboxes Form Fields
     updateCategoryCheckboxes = (event) => {
         // check if the value that the user has clicked already exists
         // 1. if exists, then the user is UNCHECKING the box
@@ -94,6 +96,7 @@ export default class AddFlorists extends React.Component {
         }
     }
 
+    // Account created upon all fields filled and meet criteria
     createAccount = () => {
         let error = ""
         if (this.state.newUserName.length < 8) {
@@ -142,119 +145,123 @@ export default class AddFlorists extends React.Component {
 
     }
 
+    // If do not want to continue to create account.
+    // Cancel button and returns to login page
     cancelAccount = () => {
         this.props.onAfterAddFlorist()
     }
 
     render() {
         return <React.Fragment>
-            <h1>Create Account</h1>
+            <div className="container">
+                <h1>Create Account</h1>
 
-            <div>
-                <h3>Login Information</h3>
                 <div>
-                    <label className="form-label">User Name:</label>
-                    <input type="text"
-                        className="form-control"
-                        name="newUserName"
-                        value={this.state.newUserName}
-                        onChange={this.updateFormField} />
+                    <h3>Login Information</h3>
+                    <div className="add-florists-div">
+                        <label className="form-label add-florists-label">User Name:</label>
+                        <input type="text"
+                            className="form-control"
+                            name="newUserName"
+                            value={this.state.newUserName}
+                            onChange={this.updateFormField} />
+                    </div>
+                    <div className="add-florists-div">
+                        <label className="form-label add-florists-label">Login Email:</label>
+                        <input type="text"
+                            className="form-control"
+                            name="newLoginEmail"
+                            value={this.state.newLoginEmail}
+                            onChange={this.updateFormField} />
+                    </div>
                 </div>
+
                 <div>
-                    <label className="form-label">Login Email:</label>
-                    <input type="text"
-                        className="form-control"
-                        name="newLoginEmail"
-                        value={this.state.newLoginEmail}
-                        onChange={this.updateFormField} />
+                    <h3>More About You (Profile to Public)</h3>
+                    <div className="add-florists-div">
+                        <label className="form-label add-florists-label">Name of Florist:</label>
+                        <input type="text"
+                            className="form-control"
+                            name="newFloristName"
+                            value={this.state.newFloristName}
+                            onChange={this.updateFormField} />
+                    </div>
+                    <div className="add-florists-div">
+                        <div><label className="form-label add-florists-label">Ways you want to be contacted thru: </label></div>
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="whatsapp"
+                                name="newContactCategory"
+                                checked={this.state.newContactCategory.includes('whatsapp')}
+                                onChange={this.updateCategoryCheckboxes}
+                                onClick={this.checkContactMethod} />
+                            <label className="form-check-label" for="category-whatsapp">
+                                Whatsapp
+                            </label>
+                        </div>
+
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="facebook"
+                                name="newContactCategory"
+                                checked={this.state.newContactCategory.includes('facebook')}
+                                onChange={this.updateCategoryCheckboxes}
+                                onClick={this.checkContactMethod} />
+                            <label className="form-check-label" for="category-facebook">
+                                Facebook
+                            </label>
+                        </div>
+
+                        <div className="form-check-inline">
+                            <input className="form-check-input"
+                                type="checkbox"
+                                value="instagram"
+                                name="newContactCategory"
+                                checked={this.state.newContactCategory.includes('instagram')}
+                                onChange={this.updateCategoryCheckboxes} />
+                            <label className="form-check-label" for="category-instagram">
+                                Instagram
+                            </label>
+                        </div>
+                    </div>
+
+                    <div className="add-florists-div">
+                        <label className="form-label add-florists-label">Contact Number (Please fill this field if you have ticked 'Whatsapp' above):</label>
+                        <input disabled={!this.state.newContactCategory.includes('whatsapp')}
+                            type="text"
+                            className="form-control"
+                            name="newContactNumber"
+                            value={this.state.newContactNumber}
+                            onChange={this.updateFormField} />
+                    </div>
+                    <div className="add-florists-div">
+                        <label className="form-label add-florists-label">Instagram URL (Please fill this field if you have ticked 'Instagram' above):</label>
+                        <input disabled={!this.state.newContactCategory.includes('instagram')}
+                            type="text"
+                            className="form-control"
+                            name="newInstagramURL"
+                            value={this.state.newInstagramURL}
+                            onChange={this.updateFormField} />
+                    </div>
+                    <div className="add-florists-div">
+                        <label className="form-label add-florists-label">Facebook URL (Please fill this field if you have ticked 'Facebook' above):</label>
+                        <input disabled={!this.state.newContactCategory.includes('facebook')}
+                            type="text"
+                            className="form-control"
+                            name="newFacebookURL"
+                            value={this.state.newFacebookURL}
+                            onChange={this.updateFormField} />
+                    </div>
                 </div>
+
+                <button className="btn btn-primary mx-2"
+                    onClick={() => this.createAccount()}>Create New Account</button>
+
+                <button className="btn btn-danger"
+                    onClick={() => this.cancelAccount()}>Cancel</button>
             </div>
-
-            <div>
-                <h3>More About You (Profile to Public)</h3>
-                <div>
-                    <label className="form-label">Name of Florist:</label>
-                    <input type="text"
-                        className="form-control"
-                        name="newFloristName"
-                        value={this.state.newFloristName}
-                        onChange={this.updateFormField} />
-                </div>
-                <div>
-                    <div><label className="form-label">Ways you want to be contacted thru: </label></div>
-                    <div className="form-check-inline">
-                        <input className="form-check-input"
-                            type="checkbox"
-                            value="whatsapp"
-                            name="newContactCategory"
-                            checked={this.state.newContactCategory.includes('whatsapp')}
-                            onChange={this.updateCategoryCheckboxes}
-                            onClick={this.checkContactMethod} />
-                        <label className="form-check-label" for="category-whatsapp">
-                            Whatsapp
-                        </label>
-                    </div>
-
-                    <div className="form-check-inline">
-                        <input className="form-check-input"
-                            type="checkbox"
-                            value="facebook"
-                            name="newContactCategory"
-                            checked={this.state.newContactCategory.includes('facebook')}
-                            onChange={this.updateCategoryCheckboxes}
-                            onClick={this.checkContactMethod} />
-                        <label className="form-check-label" for="category-facebook">
-                            Facebook
-                        </label>
-                    </div>
-
-                    <div className="form-check-inline">
-                        <input className="form-check-input"
-                            type="checkbox"
-                            value="instagram"
-                            name="newContactCategory"
-                            checked={this.state.newContactCategory.includes('instagram')}
-                            onChange={this.updateCategoryCheckboxes} />
-                        <label className="form-check-label" for="category-instagram">
-                            Instagram
-                        </label>
-                    </div>
-                </div>
-
-                <div>
-                    <label className="form-label">Contact Number (Please fill this field if you have ticked 'Whatsapp' above):</label>
-                    <input disabled={!this.state.newContactCategory.includes('whatsapp')}
-                        type="text"
-                        className="form-control"
-                        name="newContactNumber"
-                        value={this.state.newContactNumber}
-                        onChange={this.updateFormField} />
-                </div>
-                <div>
-                    <label className="form-label">Instagram URL (Please fill this field if you have ticked 'Instagram' above):</label>
-                    <input disabled={!this.state.newContactCategory.includes('instagram')}
-                        type="text"
-                        className="form-control"
-                        name="newInstagramURL"
-                        value={this.state.newInstagramURL}
-                        onChange={this.updateFormField} />
-                </div>
-                <div>
-                    <label className="form-label">Facebook URL (Please fill this field if you have ticked 'Facebook' above):</label>
-                    <input disabled={!this.state.newContactCategory.includes('facebook')}
-                        type="text"
-                        className="form-control"
-                        name="newFacebookURL"
-                        value={this.state.newFacebookURL}
-                        onChange={this.updateFormField} />
-                </div>
-            </div>
-
-            <button className="btn btn-primary"
-                onClick={() => this.createAccount()}>Create New Account</button>
-
-            <button className="btn btn-danger"
-                onClick={() => this.cancelAccount()}>Cancel</button>
         </React.Fragment>
     }
 }
