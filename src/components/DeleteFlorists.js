@@ -23,36 +23,35 @@ export default class DeleteFlorists extends React.Component {
 
     deleteProfile = async () => {
 
-        if (this.state.floristEmailToDelete == this.state.floristConfirmEmail){
+        if (this.state.floristEmailToDelete == this.state.floristConfirmEmail) {
             await axios.delete(this.url + "/florists/" + this.state.floristIdToDelete)
 
             alert("Profile successfully deleted.")
 
             this.props.afterDeleteProfile()
-
-
         } else {
             alert("The email address you have entered does not match.")
         }
-
     }
 
 
     render() {
         return <React.Fragment>
-            <div>Please confirm if you want to delete your profile by enter your email below.</div>
-            <div>Please note that all your listings under your profile will be deleted.</div>
+            <div className="container">
+                <div>Please confirm if you want to delete your profile by enter your email below.</div>
+                <div>Please note that all your listings under your profile will be deleted.</div>
 
-            <div>
-                <label className="form-label">Email Address: </label>
-                <input type="text"
-                    className="form-control"
-                    name="floristConfirmEmail"
-                    value={this.state.floristConfirmEmail}
-                    onChange={this.updateFormField} />
+                <div>
+                    <label className="form-label mt-3">Email Address: </label>
+                    <input type="text"
+                        className="form-control"
+                        name="floristConfirmEmail"
+                        value={this.state.floristConfirmEmail}
+                        onChange={this.updateFormField} />
+                </div>
+                <div><button className="btn btn-danger mt-3"
+                    onClick={() => this.deleteProfile()}>Confirm Delete Profile</button></div>
             </div>
-            <div><button className="btn btn-danger"
-                onClick={() => this.deleteProfile()}>Confirm Delete Profile</button></div>
         </React.Fragment>
     }
 }
