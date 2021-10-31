@@ -1,3 +1,28 @@
 .error{
     color: red;
 }
+
+.eachFormField{
+    margin-bottom: 10px;
+}
+
+.add-listing-labels{
+    font-weight: bold;
+}
+
+.addPreviewImage{
+    width: 80%;
+    height: auto;
+}
+
+@media screen and (min-width: 576px){
+    .addPreviewImage{
+        width: 50%;
+    }    
+}
+
+@media screen and (min-width: 576px){
+    .addPreviewImage{
+        width: 30%;
+    }    
+}

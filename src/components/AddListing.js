@@ -42,7 +42,6 @@ export default class Admin extends React.Component {
         'newListingQuantity': 0,
         'newListingOccasion': [],
         'newListingImage': "",
-        'newListingImagePreview': previewImage,
         'florist_id': this.props.florist_id,
         'florist_name': this.props.florist_name,
         'number': this.props.number,
@@ -60,6 +59,7 @@ export default class Admin extends React.Component {
         }
     }
 
+    // On submit form button and all criterias fulfilled, submit form to server
     onSubmitForm = () => {
         if (!this.state.newListingName.length < 1 &&
             !this.state.newListingDescription.length < 1 &&
@@ -69,7 +69,16 @@ export default class Admin extends React.Component {
             !this.state.newListingOccasion < 1 &&
             (this.state.newListingImage.endsWith(".jpg") ||
                 this.state.newListingImage.endsWith(".png") ||
-                this.state.newListingImage.endsWith(".jpeg"))
+                this.state.newListingImage.endsWith(".jpeg")) &&
+            !this.state.florist_id == "" &&
+            !this.state.florist_name.length < 1 &&
+            !this.state.contact_method.length < 1 &&
+            (this.state.contact_method.includes("whatsapp") ? this.state.number.length == 8 : true) &&
+            (this.state.contact_method.includes("instagram") ? this.state.instagram.includes("instagram.com") : true) &&
+            (this.state.contact_method.includes("facebook") ? this.state.facebook.includes("facebook.com") : true) &&
+            (this.state.number ? this.state.contact_method.includes("whatsapp") : true) &&
+            (this.state.instagram ? this.state.contact_method.includes("instagram") : true) &&
+            (this.state.facebook ? this.state.contact_method.includes("facebook") : true)
         ) {
             this.sendData().then(
                 alert("Successful submission")
@@ -81,12 +90,14 @@ export default class Admin extends React.Component {
         }
     }
 
+    // Update Form Fields
     updateFormField = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
 
+    // Update checkboxes form fields
     updateCategoryCheckboxes = (event) => {
         // check if the value that the user has clicked already exists
         // 1. if exists, then the user is UNCHECKING the box
@@ -110,221 +121,242 @@ export default class Admin extends React.Component {
         }
     }
 
-    updateFormFieldImage = (event) => {
-        this.setState({
-            newListingImage: event.target.value,
-            newListingImagePreview: event.target.value
-        })
-    }
-
     render() {
         return <React.Fragment>
-            <h1>Add a new listing</h1>
-            <div>
-                <label className="form-label">Name of listing:</label>
-                <input type="text"
-                    className="form-control"
-                    name="newListingName"
-                    required
-                    value={this.state.newListingName}
-                    onChange={this.updateFormField} />
-                <div>{this.state.newListingName.length < 1 &&
-                    <span className='error'>{this.state.error.newListingName}</span>}
-                </div>
-            </div>
-            <div>
-                <label className="form-label">Short Description: </label>
-                <textarea className="form-control"
-                    name="newListingDescription"
-                    value={this.state.newListingDescription}
-                    onChange={this.updateFormField} />
-                <div>{this.state.newListingDescription.length < 1 &&
-                    <span className='error'>{this.state.error.newListingDescription}</span>}
-                </div>
-            </div>
-            <div>
-                <div><label className="form-label">Flower Categories: </label></div>
-                <div className="form-check-inline">
-                    <input className="form-check-input"
-                        type="checkbox"
-                        value="roses"
-                        name="newListingCategory"
-                        checked={this.state.newListingCategory.includes('roses')}
-                        onChange={this.updateCategoryCheckboxes} />
-                    <label className="form-check-label" for="category-roses">
-                        Roses
-                    </label>
-                </div>
-                <div className="form-check-inline">
-                    <input className="form-check-input"
-                        type="checkbox"
-                        value="sunflower"
-                        name="newListingCategory"
-                        checked={this.state.newListingCategory.includes('sunflower')}
-                        onChange={this.updateCategoryCheckboxes} />
-                    <label className="form-check-label" for="category-sunflower">
-                        Sunflower
-                    </label>
-                </div>
-                <div className="form-check-inline">
-                    <input className="form-check-input"
-                        type="checkbox"
-                        value="gerbera"
-                        name="newListingCategory"
-                        checked={this.state.newListingCategory.includes('gerbera')}
-                        onChange={this.updateCategoryCheckboxes} />
-                    <label className="form-check-label" for="category-gerbera">
-                        Gerbera
-                    </label>
-                </div>
-                <div className="form-check-inline">
-                    <input className="form-check-input"
-                        type="checkbox"
-                        value="baby breath"
-                        name="newListingCategory"
-                        checked={this.state.newListingCategory.includes('baby breath')}
-                        onChange={this.updateCategoryCheckboxes} />
-                    <label className="form-check-label" for="category-baby breath">
-                        Baby Breath
-                    </label>
-                </div>
-                <div className="form-check-inline">
-                    <input className="form-check-input"
-                        type="checkbox"
-                        value="tulips"
-                        name="newListingCategory"
-                        checked={this.state.newListingCategory.includes('tulips')}
-                        onChange={this.updateCategoryCheckboxes} />
-                    <label className="form-check-label" for="category-tulips">
-                        Tulips
-                    </label>
-                </div>
-                <div className="form-check-inline">
-                    <input className="form-check-input"
-                        type="checkbox"
-                        value="hydrangea"
-                        name="newListingCategory"
-                        checked={this.state.newListingCategory.includes('hydrangea')}
-                        onChange={this.updateCategoryCheckboxes} />
-                    <label className="form-check-label" for="category-hydrangea">
-                        Hydrangea
-                    </label>
-                </div>
-            </div>
-            <div>{this.state.newListingCategory.length < 1 &&
-                <span className='error'>{this.state.error.newListingCategory}</span>}
-            </div>
+            <div className="container">
+                <h1>Add a new listing</h1>
+                <div className="eachFormField">
+                    <label className="form-label add-listing-labels">Name of listing:</label>
+                    <input type="text"
+                        className="form-control"
+                        name="newListingName"
+                        required
+                        value={this.state.newListingName}
+                        onChange={this.updateFormField}
+                        onBlur={this.checkError} />
 
-            <div>
-                <div><label className="form-label">Occasion:</label></div>
-                <div className="form-check-inline">
-                    <input className="form-check-input"
-                        type="checkbox"
-                        value="anniversary"
-                        name="newListingOccasion"
-                        onChange={this.updateCategoryCheckboxes}
-                        checked={this.state.newListingOccasion.includes('anniversary')} />
-                    <label className="form-check-label" htmlFor="occasion-anniversary">
-                        Anniversary
-                    </label>
+                    {/* error message */}
+                    {this.state.newListingName.length < 1 ?
+                        <span className='error'>{this.state.error.newListingName}</span>
+                        : null}
                 </div>
-                <div className="form-check-inline">
-                    <input className="form-check-input"
-                        type="checkbox"
-                        value="birthday"
-                        name="newListingOccasion"
-                        onChange={this.updateCategoryCheckboxes}
-                        checked={this.state.newListingOccasion.includes('birthday')} />
-                    <label className="form-check-label" htmlFor="occasion-birthday">
-                        Birthday
-                    </label>
-                </div>
-                <div className="form-check-inline">
-                    <input className="form-check-input"
-                        type="checkbox"
-                        value="date"
-                        name="newListingOccasion"
-                        onChange={this.updateCategoryCheckboxes}
-                        checked={this.state.newListingOccasion.includes('date')} />
-                    <label className="form-check-label" htmlFor="occasion-date">
-                        Date
-                    </label>
-                </div>
-                <div className="form-check-inline">
-                    <input className="form-check-input"
-                        type="checkbox"
-                        value="graduation"
-                        name="newListingOccasion"
-                        onChange={this.updateCategoryCheckboxes}
-                        checked={this.state.newListingOccasion.includes('graduation')} />
-                    <label className="form-check-label" htmlFor="occasion-graduation">
-                        Graduation
-                    </label>
-                </div>
-                <div className="form-check-inline">
-                    <input className="form-check-input"
-                        type="checkbox"
-                        value="wedding"
-                        name="newListingOccasion"
-                        onChange={this.updateCategoryCheckboxes}
-                        checked={this.state.newListingOccasion.includes('wedding')} />
-                    <label className="form-check-label" htmlFor="occasion-wedding">
-                        Wedding
-                    </label>
-                </div>
-            </div>
-            <div>{this.state.newListingOccasion.length < 1 &&
-                <span className='error'>{this.state.error.newListingOccasion}</span>}
-            </div>
+                <div className="eachFormField">
+                    <label className="form-label add-listing-labels">Short Description: </label>
+                    <textarea className="form-control"
+                        name="newListingDescription"
+                        value={this.state.newListingDescription}
+                        onChange={this.updateFormField} />
 
-            <div>
-                <label className="form-label">Price (SGD): </label>
-                <input type="number"
-                    name="newListingPrice"
-                    value={this.state.newListingPrice}
-                    onChange={this.updateFormField} />
-                <div>{(parseFloat(this.state.newListingPrice) <= 0 ||
-                    !parseFloat(this.state.newListingPrice)) &&
-                    <span className='error'>{this.state.error.newListingPrice}</span>}
+                    {/* error message */}
+                    {this.state.newListingDescription.length < 1 ?
+                        <span className='error'>{this.state.error.newListingDescription}</span>
+                        : null}
                 </div>
+                <div className="eachFormField">
+                    <div><label className="form-label add-listing-labels">Flower Categories: </label></div>
+                    <div className="form-check-inline">
+                        <input className="form-check-input"
+                            type="checkbox"
+                            value="roses"
+                            name="newListingCategory"
+                            checked={this.state.newListingCategory.includes('roses')}
+                            onChange={this.updateCategoryCheckboxes} />
+                        <label className="form-check-label" for="category-roses">
+                            Roses
+                        </label>
+                    </div>
+                    <div className="form-check-inline">
+                        <input className="form-check-input"
+                            type="checkbox"
+                            value="sunflower"
+                            name="newListingCategory"
+                            checked={this.state.newListingCategory.includes('sunflower')}
+                            onChange={this.updateCategoryCheckboxes} />
+                        <label className="form-check-label" for="category-sunflower">
+                            Sunflower
+                        </label>
+                    </div>
+                    <div className="form-check-inline">
+                        <input className="form-check-input"
+                            type="checkbox"
+                            value="gerbera"
+                            name="newListingCategory"
+                            checked={this.state.newListingCategory.includes('gerbera')}
+                            onChange={this.updateCategoryCheckboxes} />
+                        <label className="form-check-label" for="category-gerbera">
+                            Gerbera
+                        </label>
+                    </div>
+                    <div className="form-check-inline">
+                        <input className="form-check-input"
+                            type="checkbox"
+                            value="baby breath"
+                            name="newListingCategory"
+                            checked={this.state.newListingCategory.includes('baby breath')}
+                            onChange={this.updateCategoryCheckboxes} />
+                        <label className="form-check-label" for="category-baby breath">
+                            Baby Breath
+                        </label>
+                    </div>
+                    <div className="form-check-inline">
+                        <input className="form-check-input"
+                            type="checkbox"
+                            value="tulips"
+                            name="newListingCategory"
+                            checked={this.state.newListingCategory.includes('tulips')}
+                            onChange={this.updateCategoryCheckboxes} />
+                        <label className="form-check-label" for="category-tulips">
+                            Tulips
+                        </label>
+                    </div>
+                    <div className="form-check-inline">
+                        <input className="form-check-input"
+                            type="checkbox"
+                            value="hydrangea"
+                            name="newListingCategory"
+                            checked={this.state.newListingCategory.includes('hydrangea')}
+                            onChange={this.updateCategoryCheckboxes} />
+                        <label className="form-check-label" for="category-hydrangea">
+                            Hydrangea
+                        </label>
+                    </div>
+
+                    {/* error message */}
+                    {this.state.newListingCategory.length < 1 ?
+                        <div>
+                            <span className='error'>{this.state.error.newListingCategory}</span>
+                        </div>
+                        : null}
+                </div>
+
+                <div className="eachFormField">
+                    <div><label className="form-label add-listing-labels">Occasion:</label></div>
+                    <div className="form-check-inline">
+                        <input className="form-check-input"
+                            type="checkbox"
+                            value="anniversary"
+                            name="newListingOccasion"
+                            onChange={this.updateCategoryCheckboxes}
+                            checked={this.state.newListingOccasion.includes('anniversary')} />
+                        <label className="form-check-label" htmlFor="occasion-anniversary">
+                            Anniversary
+                        </label>
+                    </div>
+                    <div className="form-check-inline">
+                        <input className="form-check-input"
+                            type="checkbox"
+                            value="birthday"
+                            name="newListingOccasion"
+                            onChange={this.updateCategoryCheckboxes}
+                            checked={this.state.newListingOccasion.includes('birthday')} />
+                        <label className="form-check-label" htmlFor="occasion-birthday">
+                            Birthday
+                        </label>
+                    </div>
+                    <div className="form-check-inline">
+                        <input className="form-check-input"
+                            type="checkbox"
+                            value="date"
+                            name="newListingOccasion"
+                            onChange={this.updateCategoryCheckboxes}
+                            checked={this.state.newListingOccasion.includes('date')} />
+                        <label className="form-check-label" htmlFor="occasion-date">
+                            Date
+                        </label>
+                    </div>
+                    <div className="form-check-inline">
+                        <input className="form-check-input"
+                            type="checkbox"
+                            value="graduation"
+                            name="newListingOccasion"
+                            onChange={this.updateCategoryCheckboxes}
+                            checked={this.state.newListingOccasion.includes('graduation')} />
+                        <label className="form-check-label" htmlFor="occasion-graduation">
+                            Graduation
+                        </label>
+                    </div>
+                    <div className="form-check-inline">
+                        <input className="form-check-input"
+                            type="checkbox"
+                            value="wedding"
+                            name="newListingOccasion"
+                            onChange={this.updateCategoryCheckboxes}
+                            checked={this.state.newListingOccasion.includes('wedding')} />
+                        <label className="form-check-label" htmlFor="occasion-wedding">
+                            Wedding
+                        </label>
+                    </div>
+
+                    {/* error message */}
+                    {this.state.newListingOccasion.length < 1 ?
+                        <div>
+                            <span className='error'>{this.state.error.newListingOccasion}</span>
+                        </div>
+                        : null}
+                </div>
+
+                <div className="eachFormField">
+                    <label className="form-label add-listing-labels">Price (SGD): </label>
+                    <input type="number"
+                        name="newListingPrice"
+                        value={this.state.newListingPrice}
+                        onChange={this.updateFormField} />
+
+                    {/* error message */}
+                    {(parseFloat(this.state.newListingPrice) <= 0 ||
+                        !parseFloat(this.state.newListingPrice)) ?
+                        <div>
+                            <span className='error'>{this.state.error.newListingPrice}</span>
+                        </div>
+                        : null}
+                </div>
+
+                <div className="eachFormField">
+                    <label className="form-label add-listing-labels">Quantity Available: </label>
+                    <input type="number"
+                        name="newListingQuantity"
+                        value={this.state.newListingQuantity}
+                        onChange={this.updateFormField} />
+
+                    {/* error message */}
+                    {(parseInt(this.state.newListingQuantity) <= 0 ||
+                        !parseInt(this.state.newListingQuantity)) ?
+                        <div>
+                            <span className='error'>{this.state.error.newListingQuantity}</span>
+                        </div>
+                        : null}
+                </div>
+
+                <div className="eachFormField">
+                    <label className="form-label add-listing-labels">URL of bouquet image:</label>
+                    <input type="text"
+                        className="form-control"
+                        name="newListingImage"
+                        value={this.state.newListingImage}
+                        onChange={this.updateFormField} />
+
+                    {/* error message */}
+                    {(!this.state.newListingImage.endsWith(".jpg") &&
+                        !this.state.newListingImage.endsWith(".png") &&
+                        !this.state.newListingImage.endsWith(".jpeg")) ?
+                        <div>
+                            <span className='error'>{this.state.error.newListingImage}</span>
+                        </div>
+                        : null}
+                </div>
+                <div className="eachFormField">
+                    <div className="add-listing-labels">Preview Image: </div>
+
+                    <img src={this.state.newListingImage == "" ? previewImage : this.state.newListingImage}
+                        className="addPreviewImage"
+                        alt="Preview Image"
+                        onError={(event) => event.target.src = brokenImage} />
+                </div>
+
+                <button className="btn btn-primary mb-3"
+                    type="submit"
+                    onClick={() => this.onSubmitForm()}>Post your listing</button>
             </div>
-
-            <div>
-                <label className="form-label">Quantity Available: </label>
-                <input type="number"
-                    name="newListingQuantity"
-                    value={this.state.newListingQuantity}
-                    onChange={this.updateFormField} />
-                <div>{(parseInt(this.state.newListingQuantity) <= 0 ||
-                    !parseInt(this.state.newListingQuantity)) &&
-                    <span className='error'>{this.state.error.newListingQuantity}</span>}
-                </div>
-            </div>
-
-            <div>
-                <label className="form-label">URL of bouquet image:</label>
-                <input type="text"
-                    className="form-control"
-                    name="newListingImage"
-                    value={this.state.newListingImage}
-                    onChange={this.updateFormFieldImage} />
-                <div>{(!this.state.newListingImage.endsWith(".jpg") &&
-                    !this.state.newListingImage.endsWith(".png") &&
-                    !this.state.newListingImage.endsWith(".jpeg")) &&
-                    <span className='error'>{this.state.error.newListingImage}</span>}
-                </div>
-                <div>
-                    <div>Preview Image: </div>
-
-                    <div></div>
-                    <img src={this.state.newListingImagePreview} width="300" alt="Preview Image" 
-                    onError={(event) => event.target.src = brokenImage}/>
-                </div>
-            </div>
-
-            <button className="btn btn-primary"
-                type="submit"
-                onClick={() => this.onSubmitForm()}>Post your listing</button>
 
         </React.Fragment>
     }
