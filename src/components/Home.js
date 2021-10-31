@@ -23,7 +23,7 @@ export default class Listing extends React.Component {
                     <div className="row">
                         <div id="introduction" className="col">
                             <div>
-                                <span id="introduction-span-one">Floral Market Place</span>
+                                <span id="introduction-span-one">&nbsp; Floral Market Place &nbsp; </span>
                             </div>
                             <div>
                                 <span id="introduction-span-two">“Where flowers bloom, so does hope.” – Lady Bird Johnson</span>
