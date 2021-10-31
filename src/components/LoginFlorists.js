@@ -193,7 +193,6 @@ export default class LoginFlorists extends React.Component {
     // Florist add new listing, addListingForm sets 'addListing' page to true.
     // Other pages to be false.
     addListingForm = () => {
-        console.log(this.state.data[0])
         this.setState({
             'addListing': true,
             'floristViewListings': false,
@@ -262,7 +261,8 @@ export default class LoginFlorists extends React.Component {
             return <DeleteFlorists
                 florist_id={this.state.data[0]._id}
                 florist_email={this.state.data[0].login_email}
-                afterDeleteProfile={this.onAfterDeleteFlorist} />
+                afterDeleteProfile={this.onAfterDeleteFlorist}
+                florist_listings={this.state.data} />
         }
     }
 
