@@ -1,0 +1,20 @@
+.editPreviewImage{
+    width: 100%;
+    height: auto;
+}
+
+.modal-dialog{
+    max-width: 90vw !important;
+}
+
+@media screen and (min-width: 576px){
+    .editPreviewImage{
+        width: 50%;
+    }    
+}
+
+@media screen and (min-width: 1024px){
+    .editPreviewImage{
+        width: 30%;
+    }    
+}

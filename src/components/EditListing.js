@@ -1,5 +1,8 @@
 import React from "react";
 import axios from "axios";
+import "../components-css/EditListing.css"
+import previewImage from '../components-css/preview-image.jpeg'
+import brokenImage from '../components-css/broken-image.jpeg'
 
 export default class EditListing extends React.Component {
 
@@ -49,16 +52,19 @@ export default class EditListing extends React.Component {
         }
     }
 
+    // Hide Editing Modal Box and display all listings under the Florist
     hideModalBox = () => {
         this.props.displayViewAllListings()
     }
 
+    // Update Form Field
     updateFormField = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
 
+    // Update Checkboxes Form Field
     updateCategoryCheckboxes = (event) => {
         // check if the value that the user has clicked already exists
         // 1. if exists, then the user is UNCHECKING the box
@@ -82,19 +88,39 @@ export default class EditListing extends React.Component {
         }
     }
 
+    // Confirm Edit Button
+    // If edits meet criteria then it will be submitted to server 
+    // and go back to florists listing page
+    // else it will alert the florists to check through all the fields again
+    // If try to edit florist details inside inspect components will also cause errors
     confirmEditBtn = () => {
 
-        if (this.state.listingNameToBeEdited.length < 1 ||
-            this.state.listingDescriptionToBeEdited.length < 1 ||
-            this.state.listingFlowerTypeToBeEdited.length < 1 ||
-            parseFloat(this.state.listingPriceToBeEdited) <= 0 ||
-            !parseFloat(this.state.listingPriceToBeEdited) ||
-            parseInt(this.state.listingQuantityToBeEdited) <= 0 ||
-            !parseInt(this.state.listingQuantityToBeEdited) ||
-            this.state.listingOccasionToBeEdited < 1 ||
+        if (!this.state.listingNameToBeEdited.length < 1 &&
+            !this.state.listingDescriptionToBeEdited.length < 1 &&
+            !this.state.listingFlowerTypeToBeEdited.length < 1 &&
+            !parseFloat(this.state.listingPriceToBeEdited) <= 0 &&
+            parseFloat(this.state.listingPriceToBeEdited) &&
+            !parseInt(this.state.listingQuantityToBeEdited) <= 0 &&
+            parseInt(this.state.listingQuantityToBeEdited) &&
+            !this.state.listingOccasionToBeEdited < 1 &&
             (this.state.listingImageToBeEdited.endsWith(".jpg") ||
                 this.state.listingImageToBeEdited.endsWith(".png") ||
-                this.state.listingImageToBeEdited.endsWith(".jpeg"))
+                this.state.listingImageToBeEdited.endsWith(".jpeg")) &&
+                !this.state.listingToBeEdited.florist.florist_id == "" &&
+                !this.state.listingToBeEdited.florist.florist_name.length < 1 &&
+                !this.state.listingToBeEdited.florist.contact_method.length < 1 &&
+                (this.state.listingToBeEdited.florist.contact_method.includes("whatsapp") ? 
+                    this.state.listingToBeEdited.florist.contact.number.length == 8 : true) &&
+                (this.state.listingToBeEdited.florist.contact_method.includes("instagram") ? 
+                    this.state.listingToBeEdited.florist.contact.instagram.includes("instagram.com"): true) &&
+                (this.state.listingToBeEdited.florist.contact_method.includes("facebook") ? 
+                    this.state.listingToBeEdited.florist.contact.facebook.includes("facebook.com"): true) &&
+                (this.state.listingToBeEdited.florist.contact.number ? 
+                    this.state.listingToBeEdited.florist.contact_method.includes("whatsapp"): true) &&
+                (this.state.listingToBeEdited.florist.contact.instagram ? 
+                    this.state.listingToBeEdited.florist.contact_method.includes("instagram"): true) &&
+                (this.state.listingToBeEdited.florist.contact.facebook ? 
+                    this.state.listingToBeEdited.florist.contact_method.includes("facebook"): true) 
         ) {
             this.sendData()
             alert("Editting Successful.")
@@ -106,7 +132,7 @@ export default class EditListing extends React.Component {
         }
     }
 
-
+    // Render Editing Modal Box
     render() {
         return <React.Fragment>
             <div className="modal"
@@ -119,7 +145,7 @@ export default class EditListing extends React.Component {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title"></h5>
+                            <h4 className="modal-title">Edit listing</h4>
                             <button type="button"
                                 className="close"
                                 data-dismiss="modal"
@@ -130,7 +156,6 @@ export default class EditListing extends React.Component {
                         </div>
                         <div className="modal-body">
 
-                            <h1>Edit listing</h1>
                             <div>
                                 <label className="form-label">Name of listing:</label>
                                 <input type="text"
@@ -321,6 +346,15 @@ export default class EditListing extends React.Component {
                                     !this.state.listingImageToBeEdited.endsWith(".png") &&
                                     !this.state.listingImageToBeEdited.endsWith(".jpeg")) &&
                                     <span className='error'>{this.state.error.listingImageToBeEdited}</span>}
+                                </div>
+                                <div>
+                                    <div>Preview Image: </div>
+
+                                    <div></div>
+                                    <img src={this.state.listingImageToBeEdited == "" ? previewImage : this.state.listingImageToBeEdited} 
+                                    className="editPreviewImage" 
+                                    alt="Preview Image"
+                                    onError={(event) => event.target.src = brokenImage} />
                                 </div>
                             </div>
 
