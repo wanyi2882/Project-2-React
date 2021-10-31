@@ -261,8 +261,7 @@ export default class LoginFlorists extends React.Component {
             return <DeleteFlorists
                 florist_id={this.state.data[0]._id}
                 florist_email={this.state.data[0].login_email}
-                afterDeleteProfile={this.onAfterDeleteFlorist}
-                florist_listings={this.state.data} />
+                afterDeleteProfile={this.onAfterDeleteFlorist}/>
         }
     }
 
