@@ -13,7 +13,6 @@ export default class DeleteListing extends React.Component {
         'deleteListingConfirmEmail': "",
         'listingIdToDelete': this.props.listingIdToBeDeleted,
         'floristProfile': this.props.floristProfile
-
     }
 
     hideModalBox = () => {
@@ -62,7 +61,7 @@ export default class DeleteListing extends React.Component {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title"></h5>
+                            <h5 className="modal-title">Delete listing</h5>
                             <button type="button"
                                 className="close"
                                 data-dismiss="modal"
