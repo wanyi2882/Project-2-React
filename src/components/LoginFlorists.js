@@ -4,6 +4,7 @@ import EditFlorists from './EditFlorists'
 import FloristViewListings from './FloristViewListings'
 import AddListing from './AddListing'
 import DeleteFlorists from './DeleteFlorists'
+import '../components-css/LoginFlorists.css'
 
 export default class LoginFlorists extends React.Component {
 
@@ -65,7 +66,8 @@ export default class LoginFlorists extends React.Component {
     action1 = () => {
         this.setState({
             'displayProfile': true,
-            'displayLogin': false
+            'displayLogin': false,
+            'floristViewListings': true
         })
         alert("Successful")
     }
@@ -92,7 +94,8 @@ export default class LoginFlorists extends React.Component {
     displayLogin = () => {
         if (this.state.displayLogin) {
             return <React.Fragment>
-                <div>
+                <div id="login-background">
+                    <div className="container">
                     <h3>View your profile</h3>
                     <div>
                         <label className="form-label">User Name:</label>
@@ -111,10 +114,11 @@ export default class LoginFlorists extends React.Component {
                             onChange={this.updateFormField} />
                     </div>
                     <div>
-                        <button className="btn btn-primary"
+                        <button className="btn btn-primary mt-3 me-2"
                             onClick={() => this.seeProfileBtn()}>See your profile</button>
-                        <button className="btn btn-danger"
+                        <button className="btn btn-danger mt-3"
                             onClick={() => this.createProfileBtn()}>New? Create A New Profile</button>
+                    </div>
                     </div>
                 </div>
             </React.Fragment>
