@@ -87,13 +87,14 @@ Goal: Website that can bring customer to these small businesses
 * Will be discussed under 4. Structure of Website.
 
 ## 2D. Skeleton
-![ERD Diagram]()
+![ERD Diagram](./public/erd-diagram.png)
 
 ## 2E. Surface 
-* Colors: Colours which are give a positive mood and reflects the floral concept of the webpage
-![Colours]()
+* Colors: Colours which give a positive mood and reflects the floral concept of the webpage
+![Colours](./public/colour-palette.png)
 
-* Typography: Google Font 'Quicksand', sans-serif and 'Roboto', sans-serif. An informal font style was applied as the user will be browsing throught the website in a more casual setting (relaxed tone).
+* Typography: Google Font 'Lato', sans-serif, 'Libre Baskerville', serif and 'Roboto', sans-serif; An informal font style was applied as the user will be browsing throught the website in a more casual setting (relaxed tone). 
+Font 'Libre Baskerville', serif applied only to header for home page.
 
 * Font size: Generally normal font size as it is catered for adults
 
@@ -127,6 +128,27 @@ Goal: Website that can bring customer to these small businesses
 
 ## 4. Structure of Website
 
+![structure](./public/structure.png)
+
+**4A. For B2C: Customers looking to purchase bouquets**
+1. User arrives at landing page of the website.
+
+2. User can click on the 'listing' tab to bring them the the 'listing' page where they can view all the listings by various florists.
+
+3. In the listing page, user can click on the individual listings which opens a pop up, display information on the florists, price and description.
+
+4. User can also use the search box in the 'listing' page to filter by keyword, occasion and/or flower type for results.
+
+**4B. For B2B: Freelance / Homebase Florists**
+1. On the Florist Login page, florist can choose to create a new profile or login to their profile if they have created one previously.
+
+2. Users without an existing profile can create one by clicking the 'Create New Profile' button. A create profile form will be loaded and after filling up the required information and submit, a new profile is created.
+
+3. For users with existing profile, they can login to view all the listings they have under their profile.
+
+4. User can edit and delete individual listings in the 'View All Listings' page.
+
+5. User can edit and delete their profile by clickinh on the 'edit' and 'delete' tabs respectively.
 
 ## 5. Technologies Used
 
@@ -148,19 +170,25 @@ Goal: Website that can bring customer to these small businesses
 6. Express
 - Unopinionated web framework for Node.js. A middleware for processing incoming requests and sends backs responses.
 
-7. Bootstrap
+7. Heroku
+- Cloud platform that alows us to host our server.
+
+8. Netlify
+- Platform that allows us to host our static browser page.
+
+9. Bootstrap
 - CSS Framework for building responsive, mobile-first sites.
 
-8. React Moment
+10. React Moment
 - Custom display dates and times in JavaScript.
 
-9. Axios
+11. Axios
 - Promise based HTTP client for the browser.
 
-10. React Icons
+12. React Icons
 - Library  which consolidates famous icons libraries such as Font Awesome and Heroicons for website .
 
-11. Google Fonts
+13. Google Fonts
 - Library which includes free and open source font families.
 
 ## 6. Testing Steps
@@ -210,13 +238,39 @@ Goal: Website that can bring customer to these small businesses
 - A page where customers can view by florists and the listings under them.
 - Search criteria to include filtering by prices.
 - Check for duplicate florist profile / if florist has registered a profile before.
-- To delete all listings under the profile if profile is deleted.
+- Allow for B2C users to 'like' or review each listing and have a page which shows reviews
 
 ## 8. Credits
-- Home page background image from https://unsplash.com/photos/lJKzqr36EoE
-- Listing Page background image from https://unsplash.com/photos/P103bmFilDA
+All images and content used are for educational purpose.
 
-https://unsplash.com/photos/kxvn1ogpTtE
-https://unsplash.com/photos/IicyiaPYGGI
-https://unsplash.com/photos/7AvYdG-5504
+**Images**
+- Home page background image from https://unsplash.com/photos/TtKZyFJ7XC0
+- Listing Page background image from https://unsplash.com/photos/P103bmFilDA
+- Login Page background from https://unsplash.com/photos/IicyiaPYGGI
+- Colour Palette from https://coolors.co/7c6a0a-babd8d-ffdac6-fa9500-eb6424
+
+**Flower Images**
+1. From About Flowers
+- https://aboutflowers.com.sg/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/r/grad.jpg
+- https://aboutflowers.com.sg/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/b/1/b1_3.jpg
+- https://aboutflowers.com.sg/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/_/g_.jpg
+
+2. From Mizu Flowers
+- https://cdn.shopify.com/s/files/1/0030/8029/0368/products/cherish_1296x.jpg?v=1627556631
+- https://cdn.shopify.com/s/files/1/0030/8029/0368/products/822449497_1296x.jpg?v=1569078161
+
+3. From Pagi Florist
+- https://pagiflorist.com/wp-content/uploads/2021/05/f1e18d9a-af09-41b4-9306-24587457368c.jpg
+- https://pagiflorist.com/wp-content/uploads/2021/05/f0d1dcb5-4efa-44a4-8a9d-c4747a2e78aa.jpg
+
+4. From Eiga Florist
+- https://d2j6dbq0eux0bg.cloudfront.net/images/60338582/2567377774.jpg
+
+5. Carousell (@giftsfromrudo)
+- https://media.karousell.com/media/photos/products/2019/09/22/hydrangea_rose_bouquet_1569109073_76ef8c52_progressive.jpg
+
+
+**Quote**
+- Landing page quote “Where flowers bloom, so does hope.” – Lady Bird Johnson
+
 
