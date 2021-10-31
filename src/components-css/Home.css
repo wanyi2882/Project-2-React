@@ -27,44 +27,42 @@
 
 #introduction-two{
     font-family: 'Roboto', sans-serif;
-    padding: 20px;
+    margin-top: 20px;
     display: flex;
 }
 
 #viewAllListings{
     font-size: 1em;
-    margin-bottom: 20px;
+    padding-top: 15px;
     height: 15vh;
     border: 2px solid black;
     border-radius: 50px;
     text-align: center;
     background-color: #fa9600e5;
-    padding: 10px;    
+    margin-bottom: 5px;
 }
 
 #floristPage{
     font-size: 1em;
+    padding-top: 15px;
     height: 15vh;
     border: 2px solid black;
     border-radius: 50px;
     text-align: center;
     color: white;
     background-color: #eb6324ef;
-    padding: 15px;
 }
 
 @media screen and (min-width: 576px){
 
     #viewAllListings{
         height: 30vh;
-        font-size: 1.2em;
-        padding: 20px;
+        font-size: 1.1em;
     }
     
     #floristPage{
         height: 30vh;
-        font-size: 1.2em;
-        padding: 20px;
+        font-size: 1.1em;
     }
 }
 
