@@ -139,7 +139,7 @@ Font 'Libre Baskerville', serif applied only to header for home page.
 
 4. User can also use the search box in the 'listing' page to filter by keyword, occasion and/or flower type for results.
 
-**3B. For B2B: Freelance / Homebase Florists**
+**4B. For B2B: Freelance / Homebase Florists**
 1. On the Florist Login page, florist can choose to create a new profile or login to their profile if they have created one previously.
 
 2. Users without an existing profile can create one by clicking the 'Create New Profile' button. A create profile form will be loaded and after filling up the required information and submit, a new profile is created.
