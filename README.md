@@ -101,6 +101,122 @@ Goal: Website that can bring customer to these small businesses
 
 * Strategy for achieving mobile responsiveness: Website was built from mobile size (XS) and eventually for Ipad and Laptop display
 
+## 3. Comprehensive Feature List 
+
+**3A. For B2C: Customers looking to purchase bouquets**
+
+1. On the listing page, user can see all the listings in a chronological order (Latest listing to oldest).
+
+2. Clicking on the individual listing, a pop-up modal opens, which will display details of the listing (Such as florist contact information, description of the listing, price, etc.).
+
+3. User can also click on the 'search button' in the listing page, and a dropdown with search filters will display.
+
+4. User can filter by keywords, occasion and/or flower type and search. Listing page refreshed to display according to the filter critera.
+
+**3B. For B2B: Freelance / Homebase Florists**
+
+1. On the Florist Login page, florist can choose to create a new profile or login to their profile if they have created one previously.
+
+2. Users without an existing profile can create one by clicking the 'Create New Profile' button. A create profile form will be loaded and after filling up the required information and submit, a new profile is created.
+
+3. For users with existing profile, they can login to view all the listings they have under their profile.
+
+4. User can edit and delete individual listings.
+
+5. User can edit and delete their profile.
+
+## 4. Structure of Website
+
+
+## 5. Technologies Used
+
+1. HTML
+-  A markup language which provides the structure of a website to be displayed on web browsers.
+
+2. CSS (Cascading Style Sheet)
+-  A style sheet language used for describing the presentation of a document written in this HTML page.
+
+3. JavaScript
+- Programming language which creates dynamic behaviour to a webpage. It will execute actions and create interaction between the website and their users.
+
+4. React
+- A front-end JavaScript library for building websites with user interface components.
+
+5. MongoDB
+- Document-based database platform with easy to apply query language methods.
+
+6. Express
+- Unopinionated web framework for Node.js. A middleware for processing incoming requests and sends backs responses.
+
+7. Bootstrap
+- CSS Framework for building responsive, mobile-first sites.
+
+8. React Moment
+- Custom display dates and times in JavaScript.
+
+9. Axios
+- Promise based HTTP client for the browser.
+
+10. React Icons
+- Library  which consolidates famous icons libraries such as Font Awesome and Heroicons for website .
+
+11. Google Fonts
+- Library which includes free and open source font families.
+
+## 6. Testing Steps
+
+**6A. For B2C User: Customers looking to purchase bouquets**
+
+| Test Case # | Test Case Description | Test Steps| Expected Result | 
+|-------------|:---------------------:|----------:|----------------:|
+|01.          | View all listings     | User clicks on 'listing' tab| Page displays all listing from newest to oldest|
+|02.          | Filter listings       |           |                 |
+|02A.         |                       | Keyword search "free"       | Displays all listings with "free" mentioned inside description|
+|02B.         |                       | Search by Flower Categories "roses"| Displays all listings with flower type "roses"
+|02C.         |                       | Search by Flower Categories "roses" and "hydrangea"| Displays all listings with flower type "roses" or "hydrangea"|
+|02D.         |                       | Search by Occasion "birthday"| Displays all listings with occasion "birthday"|
+|02E.         |                       | Search by Occasion "birthday" and "date"| Displays all listings with occasion "birthday" or "date"|
+|02F.         |                       | Search by keyword "delivery" and Flower Categories "roses"| Displays all listings with description including "delivery" and flower type "roses"|
+|02G.         |                       | Search by Flower Categories "gerbera" and occasion "wedding"| Results does not exists. Will display results invalid on page and suggest user to view all listings|
+
+**6B. For B2B User: Freelance / Homebase Florists**
+
+| Test Case # | Test Case Description | Test Steps| Expected Result | 
+|-------------|:---------------------:|----------:|----------------:|
+|01.          | Create Profile        |           |                 |
+|01A.         |                       | User fills in all the fields correctly and no error message displayed| Create Profile form is successfully submitted and user redirected to login page to login|
+|01B.         |                       | - User submits empty form <br /> - Form fields not filled <br /> - Form fields filled incorrectly / do not match criteria| Alert user to check form fields again|
+|02.          | Florist Login         |           |                 |
+|02A.         |                       | Florist keys username and email which exists in the database| Alert successful login|
+|02B.         |                       | Florist keys username and email which does not exists / does not match in the database| Alert failed login|
+|03.          | Florist Edit profile  |           |                 |
+|03A.         |                       | User fills in all the fields correctly in edit profile form and no error message displayed| Alert successfully edit profile|
+|03B.         |                       | - User submits empty edit profile form <br /> - edit form fields not filled <br /> - edit form fields filled incorrectly / do not match criteria| Alert user to check form fields again|
+|04.          | Florist Delete profile  |           |                 |
+|04A.         |                       | User fills in email address which matches what is stored in database| Alert successfully delete profile|
+|04B.         |                       | User fills in email address which does not match what is stored in database| Alert user that the email address entered does not match database.|
+|05.          | Add New Listing       |           |                 |
+|05A.         |                       | User fills in all the add listing form fields correctly and no error message displayed| Listing successfully created and user redirected to view all listings under user profile|
+|05B.         |                       | - User submits empty add listing form <br /> - add listing form fields not filled <br /> - add listing form fields filled incorrectly / do not match criteria| Alert user to check through the form fields again |
+|06.          | Edit Listing          |           |                 |
+|06A.         |                       | User fills in all the edit listing form fields correctly and no error message displayed| Listing successfully edited and user redirected to view all listings under user profile|
+|06B.         |                       | - User submits empty edit listing form <br /> - edit listing form fields not filled <br /> - edit listing form fields filled incorrectly / do not match criteria| Alert user to check through the form fields again |
+|07.          | Delete Listing          |           |                 |
+|07A.         |                       | User fills in email address which matches what is stored in database| Alert successfully delete listing|
+|07B.         |                       | User fills in email address which does not match what is stored in database| Alert user that the email address entered does not match database.|
+
+
+## 7. Future Features Implementation / Bugs
+- A page where customers can view by florists and the listings under them.
+- Search criteria to include filtering by prices.
+- Check for duplicate florist profile / if florist has registered a profile before.
+- To delete all listings under the profile if profile is deleted.
+
 ## 8. Credits
 - Home page background image from https://unsplash.com/photos/lJKzqr36EoE
 - Listing Page background image from https://unsplash.com/photos/P103bmFilDA
+
+https://unsplash.com/photos/kxvn1ogpTtE
+https://unsplash.com/photos/IicyiaPYGGI
+https://unsplash.com/photos/7AvYdG-5504
+
