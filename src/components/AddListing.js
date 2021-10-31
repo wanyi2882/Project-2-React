@@ -132,8 +132,7 @@ export default class Admin extends React.Component {
                         name="newListingName"
                         required
                         value={this.state.newListingName}
-                        onChange={this.updateFormField}
-                        onBlur={this.checkError} />
+                        onChange={this.updateFormField}/>
 
                     {/* error message */}
                     {this.state.newListingName.length < 1 ?
