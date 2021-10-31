@@ -130,6 +130,25 @@ Font 'Libre Baskerville', serif applied only to header for home page.
 
 ![structure](./public/structure.png)
 
+**4A. For B2C: Customers looking to purchase bouquets**
+1. User arrives at landing page of the website.
+
+2. User can click on the 'listing' tab to bring them the the 'listing' page where they can view all the listings by various florists.
+
+3. In the listing page, user can click on the individual listings which opens a pop up, display information on the florists, price and description.
+
+4. User can also use the search box in the 'listing' page to filter by keyword, occasion and/or flower type for results.
+
+**3B. For B2B: Freelance / Homebase Florists**
+1. On the Florist Login page, florist can choose to create a new profile or login to their profile if they have created one previously.
+
+2. Users without an existing profile can create one by clicking the 'Create New Profile' button. A create profile form will be loaded and after filling up the required information and submit, a new profile is created.
+
+3. For users with existing profile, they can login to view all the listings they have under their profile.
+
+4. User can edit and delete individual listings in the 'View All Listings' page.
+
+5. User can edit and delete their profile by clickinh on the 'edit' and 'delete' tabs respectively.
 
 ## 5. Technologies Used
 
