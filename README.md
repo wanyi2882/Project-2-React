@@ -240,7 +240,6 @@ Font 'Libre Baskerville', serif applied only to header for home page.
 
 ## 7. Future Features Implementation / Bugs
 - A page where customers can view by florists and the listings under them.
-- Search criteria to include filtering by prices.
 - Check for duplicate florist profile / if florist has registered a profile before.
 - Allow for B2C users to 'like' or review each listing and have a page which shows reviews
 
