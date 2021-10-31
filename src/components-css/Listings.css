@@ -29,8 +29,8 @@
 .card-listing{
     font-family: 'Lato', sans-serif;
     margin: 10px;
-    width: 16rem;
-    height: 65vh;
+    width: 80%;
+    height: 100%;
 }
 
 .card-listing:hover{
@@ -39,7 +39,6 @@
 
 .card-image{
     padding: 20px;
-    height: 320px;
 }
 
 .card-body{

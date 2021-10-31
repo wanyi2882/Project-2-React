@@ -431,7 +431,7 @@ export default class Listing extends React.Component {
                     <div className="container">
                         <div className="row">
                             {this.state.data.map(listings =>
-                                <div className="col-12 col-sm-6 col-lg-4" key={listings._id}>
+                                <div className="col-12 col-sm-6 col-lg-4 mt-2 mb-2" key={listings._id}>
                                     <div className="card card-listing"
                                         role="button"
                                         key={listings._id}
