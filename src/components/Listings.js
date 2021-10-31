@@ -495,7 +495,14 @@ export default class Listing extends React.Component {
                                 null :
                                 <span> Occasion: {this.state.searchOccasion.join(", ")} </span>}
                             <br />
-
+                            {this.state.searchMinPrice == "" ?
+                                null :
+                                <span> Min Price: {this.state.searchMinPrice} </span>}
+                            <br />
+                            {this.state.searchMinPrice == "" ?
+                                null :
+                                <span> Max Price: {this.state.searchMaxPrice} </span>}
+                            <br />
                             <span> Why not &nbsp;
                                 <span id="emptySearchResultsAlternative"
                                     role="button"
