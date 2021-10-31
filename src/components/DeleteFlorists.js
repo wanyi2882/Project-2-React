@@ -12,7 +12,27 @@ export default class DeleteFlorists extends React.Component {
     state = {
         'floristIdToDelete': this.props.florist_id,
         'floristEmailToDelete': this.props.florist_email,
-        'floristConfirmEmail': ""
+        'floristConfirmEmail': "",
+        'data': [
+
+        ]
+    }
+
+    fetchData = async () => {
+        let response = await axios.get(this.url + "/listings")
+
+        // Sort by descending date (Default)                                         
+        let array = response.data
+
+        let filteredArray = array.filter(each => each.florist.florist_id == this.state.floristIdToDelete);
+
+        this.setState({
+            'data': filteredArray
+        })
+    }
+
+    componentDidMount() {
+        this.fetchData()
     }
 
     updateFormField = (event) => {
@@ -22,8 +42,19 @@ export default class DeleteFlorists extends React.Component {
     }
 
     deleteProfile = async () => {
-
         if (this.state.floristEmailToDelete == this.state.floristConfirmEmail) {
+            // Delete listings under the florists first
+            this.state.data.map(each => axios.delete(this.url + "/listings/" + each._id,
+                {
+                    data:
+                    {
+                        "login_email": this.state.floristConfirmEmail,
+                        "florist_id": this.state.floristIdToDelete
+                    }
+                })
+            )
+
+            // Delete florist profile
             await axios.delete(this.url + "/florists/" + this.state.floristIdToDelete)
 
             alert("Profile successfully deleted.")
