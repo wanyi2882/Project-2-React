@@ -8,6 +8,7 @@
     background-size:cover;
     z-index: -1;
     width: 100vw;
+    min-height: 100vh;
 }
 
 #emptySearchResultsDiv{
@@ -28,7 +29,7 @@
 
 .card-listing{
     font-family: 'Lato', sans-serif;
-    margin: 10px;
+    margin: auto;
     width: 80%;
     height: 100%;
 }
@@ -53,6 +54,11 @@
     border-radius: 30px;
     width: 100%;
     height: auto;
+}
+
+#searchDropdown{
+    font-size: 1.2em;
+    text-align: center;
 }
 
 #searchbox{

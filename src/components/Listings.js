@@ -31,7 +31,10 @@ export default class Listing extends React.Component {
         'searchMaxPrice': "",
         'displayAccordion': false,
         'modalListingDetails': {},
-        'whatsappURL': "https://wa.me/65"
+        'whatsappURL': "https://wa.me/65",
+        'accordionColor': "black",
+        'searchboxBackgroundColor': "white",
+        'searchboxColor': "black"
     }
 
     fetchData = async () => {
@@ -70,7 +73,8 @@ export default class Listing extends React.Component {
             'display': false,
             'displayAccordion': false,
             'modalListingDetails': {},
-            'whatsappURL': "https://wa.me/65"
+            'whatsappURL': "https://wa.me/65",
+            'accordionColor': "black"
         })
     }
 
@@ -80,12 +84,14 @@ export default class Listing extends React.Component {
 
             this.setState({
                 'displayAccordion': false,
-                'whatsappURL': "https://wa.me/65"
+                'whatsappURL': "https://wa.me/65",
+                'accordionColor': "black"
             })
             :
             this.setState({
                 'displayAccordion': true,
-                'whatsappURL': "https://wa.me/65" + this.state.modalListingDetails.florist.contact.number
+                'whatsappURL': "https://wa.me/65" + this.state.modalListingDetails.florist.contact.number,
+                'accordionColor': "#EB6424"
             })
     }
 
@@ -106,7 +112,7 @@ export default class Listing extends React.Component {
                                 <h5 className="modal-title">{this.state.modalListingDetails.name} < br />
                                     by {this.state.modalListingDetails.florist.florist_name}</h5>
                                 <button type="button"
-                                    className="close"
+                                    className="close btn"
                                     data-dismiss="modal"
                                     aria-label="Close"
                                     onClick={this.hideModalBox}>
@@ -133,9 +139,11 @@ export default class Listing extends React.Component {
                                             <div>
                                                 <div role="button"
                                                     onClick={() => this.openAccordion()}>
-                                                    {this.state.displayAccordion ?
-                                                        <span>Florist Contact Information <HiChevronDoubleUp /></span> :
-                                                        <span>Florist Contact Information <HiChevronDoubleDown /></span>}
+                                                    {this.state.displayAccordion 
+                                                    ? <span style={{ color: `${this.state.accordionColor}` }}>
+                                                        Florist Contact Information <HiChevronDoubleUp /></span> 
+                                                    : <span style={{ color: `${this.state.accordionColor}` }}>
+                                                        Florist Contact Information <HiChevronDoubleDown /></span>}
                                                 </div>
 
                                                 {this.state.displayAccordion ?
@@ -187,11 +195,15 @@ export default class Listing extends React.Component {
     toggle = () => {
         if (this.state.dropdown == false) {
             this.setState({
-                dropdown: true
+                dropdown: true,
+                searchboxBackgroundColor: "#EB6424",
+                searchboxColor: "white"
             })
         } else {
             this.setState({
-                dropdown: false
+                dropdown: false,
+                searchboxBackgroundColor: "white",
+                searchboxColor: "black"
             })
         }
     }
@@ -438,13 +450,11 @@ export default class Listing extends React.Component {
             return null
         }
         return <React.Fragment>
-            <ul className="nav nav-tabs justify-content-center">
-                <li className="nav-item dropdown">
-                    <button className="nav-link dropdown-toggle"
+                    <div role="button" id="searchDropdown" className="nav-link dropdown-toggle"
                         aria-expanded={this.state.dropdown}
-                        onClick={() => this.toggle()}>Search</button>
-                </li>
-            </ul>
+                        onClick={() => this.toggle()} 
+                        style={{backgroundColor: `${this.state.searchboxBackgroundColor}`,
+                                color: `${this.state.searchboxColor}`}} >Search</div>
             {this.showSearch()}
 
             <div id="listing-background">
