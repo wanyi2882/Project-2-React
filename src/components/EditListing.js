@@ -159,7 +159,7 @@ export default class EditListing extends React.Component {
                         <div className="modal-header">
                             <h4 className="modal-title">Edit listing</h4>
                             <button type="button"
-                                className="close"
+                                className="close btn"
                                 data-dismiss="modal"
                                 aria-label="Close"
                                 onClick={this.hideModalBox}>

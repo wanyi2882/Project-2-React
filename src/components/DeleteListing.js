@@ -63,7 +63,7 @@ export default class DeleteListing extends React.Component {
                         <div className="modal-header">
                             <h5 className="modal-title">Delete listing</h5>
                             <button type="button"
-                                className="close"
+                                className="close btn"
                                 data-dismiss="modal"
                                 aria-label="Close"
                                 onClick={this.hideModalBox}>
