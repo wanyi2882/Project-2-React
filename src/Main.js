@@ -65,15 +65,15 @@ export default class FloristStop extends React.Component {
                         onClick={() => this.setActive('home')}></li>
 
                         <li className="nav-item">
-                            <button className="nav-link"
+                            <button className="nav-link landing-nav"
                                 onClick={() => this.setActive('home')}>Home</button>
                         </li>
                         <li className="nav-item">
-                            <button className="nav-link"
+                            <button className="nav-link landing-nav"
                                 onClick={() => this.setActive('listings')}>Listings</button>
                         </li>
                         <li className="nav-item">
-                            <button className="nav-link"
+                            <button className="nav-link landing-nav"
                                 onClick={() => this.setActive('florists')}>Florists Login</button>
                         </li>
                     </ul>
